@@ -309,7 +309,6 @@ first_week_data = {
         {"Movie": "Gabbar Singh", "Collection (Cr)": 9.3, "Status": "All Time Record"},
         {"Movie": "Camera Man Gangatho Rambabu", "Collection (Cr)": 7.46, "Status": "Top 2"},
         {"Movie": "Attarintiki Daredi", "Collection (Cr)": 13.12, "Status": "All Time Record"},
-        {"Movie": "Vakeel Saab", "Collection (Cr)": 28, "Status": "Top 2"},
         {"Movie": "Bheemla Nayak", "Collection (Cr)": 32.7, "Status": "Top 2"},
     ],
     "West": [
@@ -387,57 +386,62 @@ first_week_data = {
 re_release_data = {
     "Nizam": [
         {"Movie": "Jalsa", "Collection (Cr)": 1.26, "Status": "All Time Record"},
-        {"Movie": "Kushi", "Collection (Cr)": 1.65, "Status": "All Time Record"},
-        {"Movie": "Gabbar Singh", "Collection (Cr)": 2.82, "Status": "Top 2"},
+        {"Movie": "Kushi", "Collection (Cr)": 1.63, "Status": "All Time Record"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 2.75, "Status": "All Time Record"},
     ],
     "East": [
         {"Movie": "Jalsa", "Collection (Cr)": 0.09, "Status": "Top 2"},
         {"Movie": "Gabbar Singh", "Collection (Cr)": 0.47, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 0.24, "Status": "All Time Record"}
     ],
     "West": [
         {"Movie": "Jalsa", "Collection (Cr)": 0.14, "Status": "All Time Record"},
         {"Movie": "Gabbar Singh", "Collection (Cr)": 0.39, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 0.09, "Status": "Top 2"}
     ],
     "UA": [
         {"Movie": "Jalsa", "Collection (Cr)": 0.26, "Status": "All Time Record"},
-        {"Movie": "Gabbar Singh", "Collection (Cr)": 0.527, "Status": "All Time Record"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 0.53, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 0.29, "Status": "All Time Record"}
     ],
     "Ceeded": [
         {"Movie": "Jalsa", "Collection (Cr)": 0.39, "Status": "All Time Record"},
-        {"Movie": "Kushi", "Collection (Cr)": 0.45, "Status": "All Time Record"},
-        {"Movie": "Gabbar Singh", "Collection (Cr)": 0.81, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 0.44, "Status": "All Time Record"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 0.812, "Status": "All Time Record"},
     ],
     "Guntur": [
         {"Movie": "Jalsa", "Collection (Cr)": 0.11, "Status": "Top 2"},
         {"Movie": "Gabbar Singh", "Collection (Cr)": 0.46, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 0.165, "Status": "All Time Record"}
     ],
     "Krishna": [
         {"Movie": "Jalsa", "Collection (Cr)": 0.22, "Status": "All Time Record"},
         {"Movie": "Gabbar Singh", "Collection (Cr)": 0.39, "Status": "All Time Record"},
-        {"Movie": "Kushi", "Collection (Cr)": 0.29, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 0.28, "Status": "All Time Record"},
     ],
     "Nellore": [
         {"Movie": "Jalsa", "Collection (Cr)": 0.11, "Status": "All Time Record"},
         {"Movie": "Gabbar Singh", "Collection (Cr)": 0.11, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 0.045, "Status": "Top 2"}
     ],
     "Coastal AP": [
-        {"Movie": "Gabbar Singh", "Collection (Cr)": 2.32, "Status": "All Time Record"},
-        {"Movie": "Kushi", "Collection (Cr)": 2.05, "Status": "All Time Record"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 2.35, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 1.11, "Status": "All Time Record"},
         {"Movie": "Jalsa", "Collection (Cr)": 1.55, "Status": "All Time Record"},
     ],
     "AP/TS": [
         {"Movie": "Jalsa", "Collection (Cr)": 2.57, "Status": "All Time Record"},
-        {"Movie": "Kushi", "Collection (Cr)": 3.62, "Status": "All Time Record"},
-        {"Movie": "Gabbar Singh", "Collection (Cr)": 5.95, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 3.18, "Status": "All Time Record"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 5.91, "Status": "All Time Record"},
     ],
     "Karnataka": [
         {"Movie": "Jalsa", "Collection (Cr)": 0.112, "Status": "All Time Record"},
-        {"Movie": "Kushi", "Collection (Cr)": 0.208, "Status": "All Time Record"},
-        {"Movie": "Gabbar Singh", "Collection (Cr)": 0.52, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 0.226, "Status": "All Time Record"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 0.51, "Status": "All Time Record"},
     ],
     "World Wide": [
-        {"Movie": "Gabbar Singh", "Collection (Cr)": 7.53, "Status": "All Time Record"},
-        {"Movie": "Kushi", "Collection (Cr)": 4.15, "Status": "All Time Record"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 7.532, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 3.7, "Status": "All Time Record"},
         {"Movie": "Jalsa", "Collection (Cr)": 3.20, "Status": "All Time Record"},
     ],
 }
@@ -1255,7 +1259,7 @@ elif nav_choice == "Center Wise Data":
 
         # Day 1 Gross - Nizam
         kushi_nizam = [
-            ("Prasad's Multiplex", "12L"), ("Gpr Multiplex", "8.3L"), ("Laxmikala cinepride", "9.15L"), ("Amb cinemas", "4.60L"), ("KPHB", "12L"), ("X roads", "11,94,460"), ("INOX", "3,48,365"), ("CINEPOLIS", "2,34,410"), ("PVR", "11,25,835"), ("MIRAJ", "4,60,900"), ("Nizamabad", "2.12L"), ("Warangal", "5.97L"), ("Karimnagar", "2.89L"), ("Khammam", "2.07L"), ("Mahbubnagar", "2.43L"), ("Nalgonda", "1.13L")
+            ("Prasad's Multiplex", "12L"), ("Gpr Multiplex", "8.3L"), ("Laxmikala cinepride", "9.15L"), ("Amb cinemas", "4.60L"), ("KPHB", "12L"), ("X roads", "11,94,460"), ("INOX", "3,48,365"), ("CINEPOLIS", "2,34,410"), ("PVR", "11,25,835"), ("MIRAJ", "4,60,900"), ("Nizamabad", "2.12L"), ("Warangal", "5.97L"), ("Karimnagar", "2.89L"), ("Khammam", "2.07L"), ("Mahbubnagar", "2.66L"), ("Nalgonda", "1.13L")
         ]
         st.markdown("<h4 style='color:#FFD700;'>Nizam - Day 1 Gross</h4>", unsafe_allow_html=True)
         st.markdown(generate_centerwise_table(kushi_nizam, ["Center", "Day 1 Gross"]), unsafe_allow_html=True)
@@ -1269,7 +1273,21 @@ elif nav_choice == "Center Wise Data":
 
         # Day 1 Gross - Guntur
         kushi_guntur = [
-            ("GUNTUR CITY", "7.2L"), ("Ongole", "5.15L"), ("Macherla", "68K")
+            ("Guntur City", "710K"),
+            ("Ongole", "384K"),
+            ("Tenali", "255K"),
+            ("Npeta", "45K"),
+            ("ChPeta", "82K"),
+            ("Vinukonda", "42K"),
+            ("Piduguralla", "28K"),
+            ("Satenpalli", "102K"),
+            ("Macherla", "70K"),
+            ("Repalle", "76K"),
+            ("Bapatla", "106K"),
+            ("Mangalagiri", "92K"),
+            ("Addanki", "32K"),
+            ("Chimakurty", "38K"),
+            ("Chebrolu", "120K")
         ]
         st.markdown("<h4 style='color:#FFD700;'>Guntur - Day 1 Gross</h4>", unsafe_allow_html=True)
         st.markdown(generate_centerwise_table(kushi_guntur, ["Center", "Day 1 Gross"]), unsafe_allow_html=True)
