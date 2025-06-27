@@ -41,46 +41,6 @@ def generate_custom_table(data, headers):
     table_html += "</tbody></table>"
     return table_style + table_html
 
-def generate_centerwise_table(data, headers):
-    table_style = """
-    <style>
-    .centerwise-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 24px;
-        font-size: 1.2em;
-        background: #23282c;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 2px 8px rgba(255,215,0,0.25);
-    }
-    .centerwise-table th {
-        background: #FFD700;
-        color: #23282c;
-        font-weight: bold;
-        padding: 12px 10px;
-        text-align: left;
-        font-size: 1.1em;
-    }
-    .centerwise-table td {
-        padding: 10px 10px;
-        color: #fff;
-        border-bottom: 1px solid #444;
-    }
-    .centerwise-table tr:nth-child(even) {
-        background: #2a2f33;
-    }
-    .centerwise-table tr:nth-child(odd) {
-        background: #23282c;
-    }
-    </style>
-    """
-    table_html = f"<table class='centerwise-table'><thead><tr>{''.join([f'<th>{h}</th>' for h in headers])}</tr></thead><tbody>"
-    for row in data:
-        table_html += "<tr>" + ''.join([f'<td>{cell}</td>' for cell in row]) + "</tr>"
-    table_html += "</tbody></table>"
-    return table_style + table_html
-
 # Set page configuration for wide layout and cinematic theme
 st.set_page_config(page_title="Pawan Kalyan Records", layout="wide", page_icon="🎬")
 
@@ -328,16 +288,169 @@ elif nav_choice == "Center Wise Data":
     "Gabbar Singh",
     "Sardaar Gabbar Singh",
     "Vakeel Saab",
-        "Bheemla Nayak",
-        "Attarintiki Daredi",
-        "Gabbar Singh (Re-Release)",
-        "CameraMan Gangatho Rambabu",
+    "Bheemla Nayak",
+    "Attarintiki Daredi",
+    "Gabbar Singh (Re-Release)",
+    "CameraMan Gangatho Rambabu",
     "Kushi (Re-Release)",
     "Annavaram",
     "Badri"
     ]
     selected_centerwise_movie = st.sidebar.selectbox("Select Movie", centerwise_movies)
     selected_record_type = None
+
+# First Week Records Data
+first_week_data = {
+    "Nizam": [
+        {"Movie": "Annavaram", "Collection (Cr)": 4.15, "Status": "Top 2"},
+        {"Movie": "Jalsa", "Collection (Cr)": 5.4, "Status": "All Time Record"},
+        {"Movie": "Puli", "Collection (Cr)": 4.76, "Status": "All Time Record"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 9.3, "Status": "All Time Record"},
+        {"Movie": "Camera Man Gangatho Rambabu", "Collection (Cr)": 7.46, "Status": "Top 2"},
+        {"Movie": "Attarintiki Daredi", "Collection (Cr)": 13.12, "Status": "All Time Record"},
+        {"Movie": "Vakeel Saab", "Collection (Cr)": 28, "Status": "Top 2"},
+        {"Movie": "Bheemla Nayak", "Collection (Cr)": 32.7, "Status": "Top 2"},
+    ],
+    "West": [
+        {"Movie": "Annavaram", "Collection (Cr)": 0.67, "Status": "Top 2"},
+        {"Movie": "Jalsa", "Collection (Cr)": 0.68, "Status": "Top 2"},
+        {"Movie": "Puli", "Collection (Cr)": 1.05, "Status": "Top 2"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 1.73, "Status": "All Time Record"},
+        {"Movie": "Attarintiki Daredi", "Collection (Cr)": 2.2, "Status": "All Time Record"},
+        {"Movie": "Sardaar Gabbar Singh", "Collection (Cr)": 3.55, "Status": "Top 2"},
+    ],
+    "East": [
+        {"Movie": "Annavaram", "Collection (Cr)": 0.80, "Status": "Top 2"},
+        {"Movie": "Jalsa", "Collection (Cr)": 0.78, "Status": "Top 2"},
+        {"Movie": "Puli", "Collection (Cr)": 1.03, "Status": "All Time Record"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 2.03, "Status": "Top 2"},
+        {"Movie": "Attarintiki Daredi", "Collection (Cr)": 2.62, "Status": "All Time Record"},
+    ],
+    "UA": [
+        {"Movie": "Annavaram", "Collection (Cr)": 1.05, "Status": "Top 2"},
+        {"Movie": "Jalsa", "Collection (Cr)": 1.3, "Status": "Top 2"},
+        {"Movie": "Puli", "Collection (Cr)": 1.51, "Status": "Top 2"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 2.51, "Status": "All Time Record"},
+        {"Movie": "Attarintiki Daredi", "Collection (Cr)": 3.46, "Status": "All Time Record"},
+        {"Movie": "Sardaar Gabbar Singh", "Collection (Cr)": 3.94, "Status": "Top 2"},
+    ],
+    "Krishna": [
+        {"Movie": "Annavaram", "Collection (Cr)": 0.79, "Status": "Top 2"},
+        {"Movie": "Jalsa", "Collection (Cr)": 1.17, "Status": "All Time Record"},
+        {"Movie": "Puli", "Collection (Cr)": 1.10, "Status": "Top 3"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 1.82, "Status": "All Time Record"},
+        {"Movie": "Attarintiki Daredi", "Collection (Cr)": 2.42, "Status": "All Time Record"},
+    ],
+    "Ceeded": [
+        {"Movie": "Annavaram", "Collection (Cr)": 2.25, "Status": "Top 2"},
+        {"Movie": "Jalsa", "Collection (Cr)": 2.57, "Status": "Top 2"},
+        {"Movie": "Puli", "Collection (Cr)": 3.27, "Status": "Top 2"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 5.1, "Status": "All Time Record"},
+        {"Movie": "Attarintiki Daredi", "Collection (Cr)": 6.5, "Status": "All Time Record"},
+        {"Movie": "Sardaar Gabbar Singh", "Collection (Cr)": 7.17, "Status": "Top 2"},
+    ],
+    "Guntur": [
+        {"Movie": "Annavaram", "Collection (Cr)": 0.835, "Status": "Top 2"},
+        {"Movie": "Jalsa", "Collection (Cr)": 1.31, "Status": "All Time Record"},
+        {"Movie": "Puli", "Collection (Cr)": 1.58, "Status": "Top 2"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 2.45, "Status": "Top 3"},
+        {"Movie": "Attarintiki Daredi", "Collection (Cr)": 3.21, "Status": "All Time Record"},
+    ],
+    "Nellore": [
+        {"Movie": "Annavaram", "Collection (Cr)": 0.475, "Status": "Top 2"},
+        {"Movie": "Jalsa", "Collection (Cr)": 0.60, "Status": "All Time Record"},
+        {"Movie": "Puli", "Collection (Cr)": 0.76, "Status": "Top 2"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 1.03, "Status": "Top 2"},
+        {"Movie": "Attarintiki Daredi", "Collection (Cr)": 1.51, "Status": "All Time Record"},
+    ],
+    "Coastal AP": [
+        {"Movie": "Annavaram", "Collection (Cr)": 4.62, "Status": "Top 2"},
+        {"Movie": "Jalsa", "Collection (Cr)": 5.84, "Status": "All Time Record"},
+        {"Movie": "Puli", "Collection (Cr)": 7.05, "Status": "Top 2"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 11.57, "Status": "All Time Record"},
+        {"Movie": "Attarintiki Daredi", "Collection (Cr)": 15.42, "Status": "All Time Record"},
+        {"Movie": "Sardaar Gabbar Singh", "Collection (Cr)": 18.69, "Status": "Top 2"},
+    ],
+    "AP/TS": [
+        {"Movie": "Annavaram", "Collection (Cr)": 11.02, "Status": "Top 2"},
+        {"Movie": "Jalsa", "Collection (Cr)": 13.81, "Status": "All Time Record"},
+        {"Movie": "Puli", "Collection (Cr)": 15.08, "Status": "Top 2"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 25.97, "Status": "All Time Record"},
+        {"Movie": "Camera Man Gangatho Rambabu", "Collection (Cr)": 22, "Status": "Top 3"},
+        {"Movie": "Attarintiki Daredi", "Collection (Cr)": 35.04, "Status": "All Time Record"},
+        {"Movie": "Katamarayudu", "Collection (Cr)": 44.60, "Status": "Top 4"},
+    ],
+}
+
+# Re-Release Opening Records Data
+re_release_data = {
+    "Nizam": [
+        {"Movie": "Jalsa", "Collection (Cr)": 1.26, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 1.65, "Status": "All Time Record"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 2.82, "Status": "Top 2"},
+    ],
+    "East": [
+        {"Movie": "Jalsa", "Collection (Cr)": 0.09, "Status": "Top 2"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 0.47, "Status": "All Time Record"},
+    ],
+    "West": [
+        {"Movie": "Jalsa", "Collection (Cr)": 0.14, "Status": "All Time Record"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 0.39, "Status": "All Time Record"},
+    ],
+    "UA": [
+        {"Movie": "Jalsa", "Collection (Cr)": 0.26, "Status": "All Time Record"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 0.527, "Status": "All Time Record"},
+    ],
+    "Ceeded": [
+        {"Movie": "Jalsa", "Collection (Cr)": 0.39, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 0.45, "Status": "All Time Record"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 0.81, "Status": "All Time Record"},
+    ],
+    "Guntur": [
+        {"Movie": "Jalsa", "Collection (Cr)": 0.11, "Status": "Top 2"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 0.46, "Status": "All Time Record"},
+    ],
+    "Krishna": [
+        {"Movie": "Jalsa", "Collection (Cr)": 0.22, "Status": "All Time Record"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 0.39, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 0.29, "Status": "All Time Record"},
+    ],
+    "Nellore": [
+        {"Movie": "Jalsa", "Collection (Cr)": 0.11, "Status": "All Time Record"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 0.11, "Status": "All Time Record"},
+    ],
+    "Coastal AP": [
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 2.32, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 2.05, "Status": "All Time Record"},
+        {"Movie": "Jalsa", "Collection (Cr)": 1.55, "Status": "All Time Record"},
+    ],
+    "AP/TS": [
+        {"Movie": "Jalsa", "Collection (Cr)": 2.57, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 3.62, "Status": "All Time Record"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 5.95, "Status": "All Time Record"},
+    ],
+    "Karnataka": [
+        {"Movie": "Jalsa", "Collection (Cr)": 0.112, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 0.208, "Status": "All Time Record"},
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 0.52, "Status": "All Time Record"},
+    ],
+    "World Wide": [
+        {"Movie": "Gabbar Singh", "Collection (Cr)": 7.53, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 4.15, "Status": "All Time Record"},
+        {"Movie": "Jalsa", "Collection (Cr)": 3.20, "Status": "All Time Record"},
+    ],
+}
+
+# USA Premier Records Data (Since 2011)
+usa_premier_data = [
+    {"Movie": "Panjaa", "Collection": "$93K", "Status": "All Time Record"},
+    {"Movie": "Gabbar Singh", "Collection": "$163K", "Status": "All Time Record"},
+    {"Movie": "Camera Man Gangatho Rambabu", "Collection": "$173K", "Status": "All Time Record"},
+    {"Movie": "Attarintiki Daredi", "Collection": "$345K", "Status": "All Time Record"},
+    {"Movie": "Sardaar Gabbar Singh", "Collection": "$616K", "Status": "Top 2"},
+    {"Movie": "Agnyaathavaasi", "Collection": "$1.52M", "Status": "Top 2"},
+    {"Movie": "Bheemla Nayak", "Collection": "$878K", "Status": "Top 7"},
+]
 
 if nav_choice == "Records":
     if selected_record_type == "-- Select --":
@@ -504,278 +617,290 @@ if nav_choice == "Records":
                 </div>
             """, unsafe_allow_html=True)
     elif selected_record_type == "Closing Records":
+        closing_records = [
+            {
+                "title": "Annavaram",
+                "image": image_paths.get("Annavaram", ""),
+                "data": [
+                    ("Nizam", "₹5.9cr"),
+                    ("Ceded", "₹3.7cr"),
+                    ("Vizag (UA)", "₹1.85cr"),
+                    ("East", "₹1.6cr"),
+                    ("West", "₹1.25cr"),
+                    ("Krishna", "₹1.35cr"),
+                    ("Guntur", "₹1.6cr"),
+                    ("Nellore", "₹0.85cr"),
+                    ("Total Ap/Tg Closing Share", "₹18.1 CR"),
+                    ("Karnataka Share", "₹1.35 CR+"),
+                    ("Rest of India Share", "₹0.25 CR"),
+                    ("Overseas Share", "₹0.70 CR"),
+                    ("Total WorldWide Closing collections", "Share - ₹20.4 CR+ | Gross - ₹31 CR+"),
+                ],
+                "note": "Second Highest Collected movie for #PawanKalyan after #Kushi (2001)"
+            },
+            {
+                "title": "Puli",
+                "image": image_paths.get("Puli", ""),
+                "data": [
+                    ("Nizam", "₹5.65cr"),
+                    ("Ceded", "₹3.8cr"),
+                    ("Vizag(UA)", "₹1.75cr"),
+                    ("East", "₹1.34cr"),
+                    ("West", "₹1.18cr"),
+                    ("Krishna", "₹1.37cr"),
+                    ("Guntur", "₹1.58cr"),
+                    ("Nellore", "₹0.94cr"),
+                    ("Total", "₹17.61 CR (Excl Sg)"),
+                    ("Karnataka+ROI", "₹1.55CR"),
+                    ("Overseas", "₹0.3CR"),
+                    ("Total WW", "Share- ₹19.46 CR | Gross- ₹29 CR"),
+                ],
+                "note": None
+            },
+            {
+                "title": "Kushi",
+                "image": image_paths.get("Kushi", ""),
+                "data": [
+                    ("Nizam", "₹8.2cr"),
+                    ("Ceded", "₹3.9cr"),
+                    ("Vizag (UA)", "₹2cr"),
+                    ("East", "₹1.47cr"),
+                    ("West", "₹1.35cr"),
+                    ("Krishna", "₹1.75cr"),
+                    ("Guntur", "₹1.43cr"),
+                    ("Nellore", "₹0.87cr"),
+                    ("Total AP/TG Share", "₹20.97 CR Approx"),
+                    ("Karnataka + Rest of India Share", "₹55 Lkhs+"),
+                    ("Overseas Share", "₹40 Lkhs+"),
+                    ("Total Worldwide Closing Collections", "Share - ₹21.92 CR Approx | Gross - ₹37 CR+ Approx (Estimates)"),
+                ],
+                "note": "All Time Telugu Film Industry Hit in both Gross & Share"
+            },
+            {
+                "title": "Jalsa",
+                "image": image_paths.get("Jalsa", ""),
+                "data": [
+                    ("Nizam", "₹9.43cr"),
+                    ("Ceded", "₹4.5cr"),
+                    ("Vizag (UA)", "₹2.85cr"),
+                    ("East", "₹2.1cr"),
+                    ("West", "₹1.8cr"),
+                    ("Krishna", "₹1.82cr"),
+                    ("Guntur", "₹2.05cr"),
+                    ("Nellore", "₹1.1cr"),
+                    ("Total Ap/Tg", "₹25.65 CR"),
+                    ("Karnataka + Rest of India", "₹1.6cr"),
+                    ("Overseas", "₹2.3cr"),
+                    ("Total Worldwide Collections", "Share - ₹29.55 CR | Gross - ₹49 CR Approx"),
+                ],
+                "note": "All Time Top 2"
+            },
+            {
+                "title": "Attarintiki Daredi",
+                "image": image_paths.get("Attarintiki Daredi", ""),
+                "data": [
+                    ("Nizam", "₹23.6cr"),
+                    ("Ceded", "₹10.5cr"),
+                    ("Vizag (UA)", "₹6.3cr"),
+                    ("East", "₹4.06cr"),
+                    ("West", "₹3.38cr"),
+                    ("Krishna", "₹3.69cr"),
+                    ("Guntur", "₹5.1cr"),
+                    ("Nellore", "₹2.63cr"),
+                    ("Total Ap/Tg", "₹59.26 CR (Excluding Overflows)"),
+                    ("Ap/Tg Share | Gross", "₹59.26cr | ₹97cr"),
+                    ("Karnataka", "₹5.61cr | ₹12cr"),
+                    ("TN + Rest of India", "₹1.65 CR | ₹4cr"),
+                    ("Overseas", "₹9.3cr | ₹17cr"),
+                    ("Total Worldwide", "₹75.82 CR | ₹130 CR"),
+                    ("Total All India Share", "₹66.52 CR"),
+                    ("Total All India Gross", "₹113 CR"),
+                    ("Total WorldWide Share Including Overflows", "₹76-77cr (approx)")
+                ],
+                "note": None
+            },
+            {
+                "title": "Bheemla Nayak",
+                "image": image_paths.get("Bheemla Nayak", ""),
+                "data": [
+                    ("Nizam", "35.02Cr"),
+                    ("Ceeded", "11.22Cr"),
+                    ("UA", "7.65Cr"),
+                    ("East", "5.49Cr"),
+                    ("West", "5.11Cr"),
+                    ("Guntur", "5.26Cr"),
+                    ("Krishna", "4.29Cr"),
+                    ("Nellore", "2.80Cr"),
+                    ("AP-TG Total", "76.84CR (117.85Cr~ Gross)"),
+                    ("KA+ROI", "8.24Cr"),
+                    ("OS", "12.55Cr"),
+                    ("Total World Wide", "97.63CR (159.10CR~ Gross)")
+                ],
+                "note": "NOTE : WOULD HAVE CROSSED 130C EASILY IF PROPER SHOWS AND TICKET HIKES WERE GIVEN BY THE GOVERNMENT. LOT OF GOVT HURDLES DURING RELEASE CAUSED A LOSS OF AROUND 20C ALONE IN AP."
+            },
+            {
+                "title": "Vakeel Saab",
+                "image": image_paths.get("Vakeel Saab", ""),
+                "data": [
+                    ("Nizam", "₹24cr/₹26.9cr"),
+                    ("Ceded", "₹12.9cr"),
+                    ("Vizag", "₹10.45cr/₹11.7cr"),
+                    ("East", "₹6.5cr/₹7.28cr"),
+                    ("West", "₹6.55cr/₹7.32cr"),
+                    ("Krishna", "₹4.65cr/₹5.2cr"),
+                    ("Guntur", "₹6.6cr/₹7.4cr"),
+                    ("Nellore", "₹3.05cr/3.4cr"),
+                    ("Total Ap/Tg Share", "₹74.7 CR/₹82.1 CR"),
+                    ("Ap/Tg Share | Gross", "₹74.7cr(₹82.1cr Incl GST) | ₹124cr"),
+                    ("Karnataka", "₹3.5cr | ₹7cr"),
+                    ("Tamilnadu+Rest of India", "₹0.8cr | ₹1.8cr"),
+                    ("Overseas", "₹4.6cr | ₹10.3cr"),
+                    ("Total Worldwide", "Share - ₹83.6 CR (Excl GST) | Share - ₹91 CR (Incl GST) | Gross - ₹143.1 CR")
+                ],
+                "note": None
+            },
+            {
+                "title": "Badri",
+                "image": "Badri.jpeg",
+                "data": [
+                    ("AP/TS Share", "₹13.1 CR Approx"),
+                    ("AP/TS Gross", "₹21 CR"),
+                    ("Nizam", "Crossed 4Cr share mark in nizam [2000]")
+                ],
+                "note": None
+            },
+            {
+                "title": "Thammudu",
+                "image": "Thammudu.jpg",
+                "data": [
+                    ("Nizam", "₹3.20 crore"),
+                    ("Andhra Pradesh", "₹6.05 crore"),
+                    ("AP/TS", "₹9.25 crore")
+                ],
+                "note": None
+            },
+            {
+                "title": "Panjaa",
+                "image": image_paths.get("Panjaa", ""),
+                "data": [
+                    ("Nizam", "5.20C"),
+                    ("Ceeded", "2.80C"),
+                    ("Vizag", "1.60C"),
+                    ("East", "1.30C"),
+                    ("West", "1.15C"),
+                    ("Krishna", "1.10C"),
+                    ("Guntur", "1.90C"),
+                    ("Nellore", "0.60C"),
+                    ("Total AP/TS", "15.65 Crores"),
+                    ("Karnataka", "1.00C"),
+                    ("Rest of India", "0.40C"),
+                    ("Overseas", "1.75C"),
+                    ("WORLDWIDE", "18.8 Crores")
+                ],
+                "note": None
+            }
+        ]
         st.markdown("<h2 style='color:#FFD700;'>Closing Records</h2>", unsafe_allow_html=True)
-        tabs = st.tabs(["Annavaram", "Puli", "Kushi", "Jalsa", "Attarintiki Daredi (AD)", "Bheemla Nayak", "Vakeel Saab", "Badri", "Thammudu", "Panjaa"])
-
-        # Annavaram Tab
-        with tabs[0]:
-            st.image(image_paths["Annavaram"])
-            st.markdown("""
-            <h3 style='color:#FFD700;'>ANNAVARAM</h3>
-            <ul style='color:#FFD700; font-size:1.1em;'>
-                <li>Nizam - ₹5.9cr</li>
-                <li>Ceded - ₹3.7cr</li>
-                <li>Vizag (UA) - ₹1.85cr</li>
-                <li>East - ₹1.6cr</li>
-                <li>West - ₹1.25cr</li>
-                <li>Krishna - ₹1.35cr</li>
-                <li>Guntur - ₹1.6cr</li>
-                <li>Nellore - ₹0.85cr</li>
-            </ul>
-            <b>Total Ap/Tg Closing Share</b> - ₹18.1 CR<br>
-            <ul style='color:#FFD700; font-size:1.1em;'>
-                <li>Karnataka Share - ₹1.35 CR+</li>
-                <li>Rest of India Share - ₹0.25 CR</li>
-                <li>Overseas Share - ₹0.70 CR</li>
-            </ul>
-            <b>Total WorldWide Closing collections</b><br>
-            <b>Share</b> - ₹20.4 CR+<br>
-            <b>Gross</b> - ₹31 CR+<br><br>
-            <span style='color:#FFD700;'>Second Highest Collected movie for #PawanKalyan after #Kushi (2001)</span>
-            """, unsafe_allow_html=True)
-
-        # Puli Tab
-        with tabs[1]:
-            st.image(image_paths["Puli"])
-            st.markdown("""
-            <h3 style='color:#FFD700;'>PULI</h3>
-            <ul style='color:#FFD700; font-size:1.1em;'>
-                <li>Nizam- ₹5.65cr</li>
-                <li>Ceded- ₹3.8cr</li>
-                <li>Vizag(UA)- ₹1.75cr</li>
-                <li>East- ₹1.34cr</li>
-                <li>West- ₹1.18cr</li>
-                <li>Krishna- ₹1.37cr</li>
-                <li>Guntur- ₹1.58cr</li>
-                <li>Nellore- ₹0.94cr</li>
-                <li>Total- ₹17.61 CR(Excl Sg)</li>
-            </ul>
-            <ul style='color:#FFD700; font-size:1.1em;'>
-                <li>Karnataka+ROI- ₹1.55CR</li>
-                <li>Overseas- ₹0.3CR</li>
-            </ul>
-            <b>Total WW</b><br>
-            <b>Share</b>- ₹19.46 CR<br>
-            <b>Gross</b>- ₹29 CR
-            """, unsafe_allow_html=True)
-
-        # Kushi Tab
-        with tabs[2]:
-            st.image(image_paths["Kushi"])
-            st.markdown("""
-            <h3 style='color:#FFD700;'>KUSHI</h3>
-            <b>Total Closing Share Collections</b><br>
-            <b>Telugu States Share Collections</b>
-            <ul style='color:#FFD700; font-size:1.1em;'>
-                <li>Nizam - ₹8.2cr</li>
-                <li>Ceded - ₹3.9cr</li>
-                <li>Vizag (UA) - ₹2cr</li>
-                <li>East - ₹1.47cr</li>
-                <li>West - ₹1.35cr</li>
-                <li>Krishna - ₹1.75cr</li>
-                <li>Guntur - ₹1.43cr</li>
-                <li>Nellore - ₹0.87cr</li>
-            </ul>
-            <b>Total AP/TG Share</b> - ₹20.97 CR Approx<br>
-            <ul style='color:#FFD700; font-size:1.1em;'>
-                <li>Karnataka + Rest of India Share - ₹55 Lkhs+</li>
-                <li>Overseas Share - ₹40 Lkhs+</li>
-            </ul>
-            <b>Total Worldwide Closing Collections</b><br>
-            <b>Share</b> - ₹21.92 CR Approx<br>
-            <b>Gross</b> - ₹37 CR+ Approx (Estimates)<br><br>
-            <span style='color:#FFD700;'>All Time Telugu Film Industry Hit in both Gross & Share</span>
-            """, unsafe_allow_html=True)
-
-        # Jalsa Tab
-        with tabs[3]:
-            st.image(image_paths["Jalsa"])
-            st.markdown("""
-            <h3 style='color:#FFD700;'>JALSA</h3>
-            <b>Total Closing share Collections</b>
-            <ul style='color:#FFD700; font-size:1.1em;'>
-                <li>Nizam - ₹9.43cr</li>
-                <li>Ceded - ₹4.5cr</li>
-                <li>Vizag (UA) - ₹2.85cr</li>
-                <li>East - ₹2.1cr</li>
-                <li>West - ₹1.8cr</li>
-                <li>Krishna - ₹1.82cr</li>
-                <li>Guntur - ₹2.05cr</li>
-                <li>Nellore - ₹1.1cr</li>
-            </ul>
-            <b>Total Ap/Tg</b> - ₹25.65 CR<br>
-            <ul style='color:#FFD700; font-size:1.1em;'>
-                <li>Karnataka + Rest of India - ₹1.6cr</li>
-                <li>Overseas - ₹2.3cr</li>
-            </ul>
-            <b>Total Worldwide Collections</b><br>
-            <b>Share</b> - ₹29.55 CR<br>
-            <b>Gross</b> - ₹49 CR Approx<br><br>
-            <span style='color:#FFD700;'>All Time Top 2</span>
-            """, unsafe_allow_html=True)
-
-        # AD Tab
-        with tabs[4]:
-            st.image(image_paths["Attarintiki Daredi"])
-            st.markdown("""
-            <h3 style='color:#FFD700;'>AD</h3>
-            <ul style='color:#FFD700; font-size:1.1em;'>
-                <li>Nizam - ₹23.6cr</li>
-                <li>Ceded - ₹10.5cr</li>
-                <li>Vizag (UA) - ₹6.3cr</li>
-                <li>East - ₹4.06cr</li>
-                <li>West - ₹3.38cr</li>
-                <li>Krishna - ₹3.69cr</li>
-                <li>Guntur - ₹5.1cr</li>
-                <li>Nellore - ₹2.63cr</li>
-                <li>Total Ap/Tg - ₹59.26 CR (Excluding Overflows)</li>
-            </ul>
-            <b>Share | Gross</b><br>
-            Ap/Tg - ₹59.26cr | ₹97cr<br>
-            Karnataka - ₹5.61cr | ₹12cr<br>
-            TN + Rest of India - ₹1.65 CR | ₹4cr<br>
-            Overseas - ₹9.3cr | ₹17cr<br>
-            Total Worldwide - ₹75.82 CR | ₹130 CR<br><br>
-            Total All India Share - ₹66.52 CR<br>
-            Total All India Gross - ₹113 CR<br>
-            <b>Total WorldWide Share Including Overflows will be in between ₹76-77cr- 2ND INDUSTRY HIT OF PAWAN KALYAN</b>
-            """, unsafe_allow_html=True)
-
-        # Bheemla Nayak Tab
-        with tabs[5]:
-            st.image(image_paths["Bheemla Nayak"])
-            st.markdown("""
-            <h3 style='color:#FFD700;'>Bheemla Nayak</h3>
-            <ul style='color:#FFD700; font-size:1.1em;'>
-                <li>Nizam: 35.02Cr</li>
-                <li>Ceeded: 11.22Cr</li>
-                <li>UA: 7.65Cr</li>
-                <li>East: 5.49Cr</li>
-                <li>West: 5.11Cr</li>
-                <li>Guntur: 5.26Cr</li>
-                <li>Krishna: 4.29Cr</li>
-                <li>Nellore: 2.80Cr</li>
-            </ul>
-            <b>AP-TG Total:</b> 76.84CR (120CR Gross)<br>
-            <ul style='color:#FFD700; font-size:1.1em;'>
-                <li>KA+ROI: 8.24Cr</li>
-                <li>OS: 12.55Cr</li>
-            </ul>
-            <b>Total World Wide:</b> 97.63CR (164.65CR Gross)<br><br>
-            <span style='color:#FFD700;'>NOTE : WOULD HAVE CROSSED 130C EASILY IF PROPER SHOWS AND TICKET HIKES WERE GIVEN BY THE GOVERNMENT. LOT OF GOVT HURDLES DURING RELEASE CAUSED A LOSS OF AROUND 20C ALONE IN AP.</span>
-            """, unsafe_allow_html=True)
-
-        # Vakeel Saab Tab
-        with tabs[6]:
-            st.image(image_paths["Vakeel Saab"])
-            st.markdown("""
-            <h3 style='color:#FFD700;'>Vakeel Saab</h3>
-            <b>Without GST / With GST 12%</b>
-            <ul style='color:#FFD700; font-size:1.1em;'>
-                <li>Nizam-₹24cr/₹26.9cr</li>
-                <li>Ceded-₹12.9cr</li>
-                <li>Vizag-₹10.45cr/₹11.7cr</li>
-                <li>East-₹6.5cr/₹7.28cr</li>
-                <li>West-₹6.55cr/₹7.32cr</li>
-                <li>Krishna-₹4.65cr/₹5.2cr</li>
-                <li>Guntur-₹6.6cr/₹7.4cr</li>
-                <li>Nellore-₹3.05cr/3.4cr</li>
-            </ul>
-            <b>Total Ap/Tg</b><br>
-            Share - ₹74.7 CR/₹82.1 CR<br><br>
-            <b>Share | Gross</b><br>
-            Ap/Tg- ₹74.7cr(₹82.1cr Incl GST) | ₹124cr<br>
-            Karnataka- ₹3.5cr | ₹7cr<br>
-            Tamilnadu+Rest of India- ₹0.8cr | ₹1.8cr<br>
-            Overseas- ₹4.6cr | ₹10.3cr<br><br>
-            <b>Total Worldwide</b><br>
-            Share - ₹83.6 CR (Excl GST)<br>
-            Share - ₹91 CR (Incl GST)<br>
-            Gross - ₹143.1 CR
-            """, unsafe_allow_html=True)
-
-        # Badri Tab
-        with tabs[7]:
-            st.image("Badri.jpeg")
-            st.markdown("""
-            <h3 style='color:#FFD700;'>Badri</h3>
-            <ul style='color:#FFD700; font-size:1.1em;'>
-                <li>AP/TS Share - ₹13.1 CR Approx</li>
-                <li>AP/TS Gross - ₹21 CR</li>
-            </ul>
-            <span style='color:#FFD700;'>Crossed 4Cr share mark in Nizam [2000]</span>
-            """, unsafe_allow_html=True)
-
-        # Thammudu Tab
-        with tabs[8]:
-            st.image("Thammudu.jpg")
-            st.markdown("""
-            <h3 style='color:#FFD700;'>Thammudu</h3>
-            <ul style='color:#FFD700; font-size:1.1em;'>
-                <li>Nizam: ₹3.20 crore</li>
-                <li>Andhra Pradesh: ₹6.05 crore</li>
-                <li>AP/TS: ₹9.25 crore</li>
-            </ul>
-            """, unsafe_allow_html=True)
-
-        # Panjaa Tab
-        with tabs[9]:
-            st.image("Panjaa.jpg")
-            st.markdown("""
-            <h3 style='color:#FFD700;'>Panjaa</h3>
-            <ul style='color:#FFD700; font-size:1.1em;'>
-                <li>Nizam: 5.20C</li>
-                <li>Ceeded: 2.80C</li>
-                <li>Vizag: 1.60C</li>
-                <li>East: 1.30C</li>
-                <li>West: 1.15C</li>
-                <li>Krishna: 1.10C</li>
-                <li>Guntur: 1.90C</li>
-                <li>Nellore: 0.60C</li>
-            </ul>
-            <b>Total AP/TS</b>: 15.65 Crores<br>
-            <ul style='color:#FFD700; font-size:1.1em;'>
-                <li>Karnataka: 1.00C</li>
-                <li>Rest of India: 0.40C</li>
-                <li>Overseas: 1.75C</li>
-            </ul>
-            <b>WORLDWIDE</b>: 18.8 Crores
-            """, unsafe_allow_html=True)
+        tab_titles = [record["title"] for record in closing_records]
+        tabs = st.tabs(tab_titles)
+        for tab, record in zip(tabs, closing_records):
+            with tab:
+                st.markdown(f"<div class='section-container' style='margin-bottom:32px;'>", unsafe_allow_html=True)
+                cols = st.columns([1, 3])
+                with cols[0]:
+                    if record["image"]:
+                        st.image(record["image"], use_container_width=True)
+                with cols[1]:
+                    st.markdown(f"<h3 style='color:#FFD700;'>{record['title']}</h3>", unsafe_allow_html=True)
+                    table_html = "<table class='custom-table'><tbody>"
+                    for row in record["data"]:
+                        table_html += f"<tr><td style='color:#FFD700;font-weight:bold;width:200px'>{row[0]}</td><td style='color:#fff;font-size:1.1em'>{row[1]}</td></tr>"
+                    table_html += "</tbody></table>"
+                    st.markdown(table_html, unsafe_allow_html=True)
+                    if record["note"]:
+                        st.markdown(f"<div style='color:#FFD700; font-size:1.1em; margin-top:8px;'><b>Note:</b> {record['note']}</div>", unsafe_allow_html=True)
+                st.markdown("</div>", unsafe_allow_html=True)
 
     elif selected_record_type == "Town Records (Full Run)":
-        st.markdown("<h2 style='color:#FFD700;'>Town Records (Full Run)</h2>", unsafe_allow_html=True)
-        town_records = [
-            ("KAKINDA TOWN", [("Kushi", "37L"), ("Jalsa", "53L"), ("GabbarSingh", "98.5L")], 3),
-            ("BVRM TOWN", [("Kushi", "21L"), ("Gabbar singh", "66L")], 2),
-            ("AMALAPURAM TOWN", [("Badri", "13L"), ("Kushi", "14.30L")], 2),
-            ("RJY TOWN", [("Jalsa", "47L")], 1),
-            ("GUDIWADA TOWN", [("Kushi", "18.60L")], 1),
-            ("MTM TOWN", [("Kushi", "18.50L")], 1),
-            ("MANDAPETA TOWN", [("Kushi", "14.50L"), ("Gopala Gopala", "25.22L")], 2),
-            ("ONGOLE TOWN", [("Kushi", "20.56L"), ("AttharintikiDaredi", "76L")], 2),
-            ("KADAPA TOWN", [("Kushi", "26L")], 1),
-            ("NELLORE TOWN", [("Kushi", "43.40L"), ("Attharintiki Daredi", "86L")], 2),
-            ("TIRUPATI", [("Kushi", "33L"), ("Gabbar Singh", "83L"), ("Attarintiki Daredi", "93L")], 3),
-            ("Kavali Town", [("Kushi", "7.40L")], 1),
-            ("Macherla A", [("Gabbarsingh", "13.7L*"), ("Attarintiki Daredi", "14.4L")], 2),
-            ("KURNOOL TOWN", [("Kushi", "31L"), ("Attharintiki Daredi", "77.58L")], 2),
-            ("Guntur City", [("Gabbar Singh", "1.02Cr"), ("Attharintiki Daredi", "1.16Cr")], 2),
-            ("Vijayawada City", [("Kushi", "87L"), ("Attharintiki Daredi", "1.88Cr")], 2),
-            ("Anakapalli Town", [("Kushi", "30.17L"), ("Attharintiki Daredi", "50.08L")], 2),
-            ("Vizag City", [("Badri", "1.14Cr"), ("Kushi", "1.38Cr"), ("Gabbar Singh", "4.80Cr-5Cr")], 3),
-            ("Ananathapur Town", [("Kushi", "29.20L")], 1),
-            ("Pithapuram Town", [("Kushi", "9.20L"), ("Annavaram", "14L")], 2),
-            ("Bobbili Town", [("Kushi", "6.47L")], 1),
-            ("Tiruvuru Town", [("Kushi", "7.95L")], 1)
+        town_data = [
+            ("Kakinada Town", [("Kushi", "37L"), ("Jalsa", "53L"), ("Gabbar Singh", "98.5L")]),
+            ("BVRM Town", [("Kushi", "21L"), ("Gabbar Singh", "66L")]),
+            ("Amalapuram Town", [("Badri", "13L"), ("Kushi", "14.30L")]),
+            ("RJY Town", [("Jalsa", "47L")]),
+            ("Gudiwada Town", [("Kushi", "18.60L")]),
+            ("MTM Town", [("Kushi", "18.50L")]),
+            ("Mandapeta Town", [("Kushi", "14.50L"), ("Gopala Gopala", "25.22L")]),
+            ("Ongole Town", [("Kushi", "20.56L"), ("Attarintiki Daredi", "76L")]),
+            ("Kadapa Town", [("Kushi", "26L")]),
+            ("Nellore Town", [("Kushi", "43.40L"), ("Attarintiki Daredi", "86L")]),
+            ("Tirupati", [("Kushi", "33L"), ("Gabbar Singh", "83L"), ("Attarintiki Daredi", "93L")]),
+            ("Kavali Town", [("Kushi", "7.40L")]),
+            ("Macherla A", [("Gabbar Singh", "13.7L*"), ("Attarintiki Daredi", "14.4L")]),
+            ("Kurnool Town", [("Kushi", "31L"), ("Attarintiki Daredi", "77.58L")]),
+            ("Guntur City", [("Gabbar Singh", "1.02Cr"), ("Attarintiki Daredi", "1.16Cr")]),
+            ("Vijayawada City", [("Kushi", "87L"), ("Attarintiki Daredi", "1.88Cr")]),
+            ("Anakapalli Town", [("Kushi", "30.17L"), ("Attarintiki Daredi", "50.08L")]),
+            ("Vizag City", [("Badri", "1.14Cr"), ("Kushi", "1.38Cr"), ("Gabbar Singh", "4.80Cr-5Cr")]),
+            ("Ananthapur Town", [("Kushi", "29.20L")]),
+            ("Pithapuram Town", [("Kushi", "9.20L"), ("Annavaram", "14L")]),
+            ("Bobbili Town", [("Kushi", "6.47L")]),
+            ("Tiruvuru Town", [("Kushi", "7.95L")]),
         ]
-        total_town_records = sum(x[2] for x in town_records)
-        for town, records, count in town_records:
-            st.markdown(f"<h4 style='color:#FFD700;'>{town}</h4>", unsafe_allow_html=True)
-            st.markdown(generate_centerwise_table([(m, c) for m, c in records], ["Movie", "Collection"]), unsafe_allow_html=True)
-            st.markdown(f"<div style='color:#FFD700; font-size:1.1em; margin-bottom:16px;'><b>{count} TOWN RECORD{'S' if count > 1 else ''}</b></div>", unsafe_allow_html=True)
-        st.markdown(f"<div style='color:#FFD700; font-size:1.2em; margin-top:32px;'><b>Total Town Records: {total_town_records}</b></div>", unsafe_allow_html=True)
+        total_town_records = sum(len(movies) for _, movies in town_data)
+        st.markdown("<h2 style='color:#FFD700;'>Town Records (Full Run)</h2>", unsafe_allow_html=True)
+        for town, records in town_data:
+            st.markdown(f"<div class='section-container' style='margin-bottom:18px;'>", unsafe_allow_html=True)
+            st.markdown(f"<h3 style='color:#FFD700;'>{town}</h3>", unsafe_allow_html=True)
+            table_html = "<table class='custom-table'><thead><tr><th>Movie</th><th>Collection</th></tr></thead><tbody>"
+            for movie, collection in records:
+                table_html += f"<tr><td style='color:#FFD700;font-weight:bold'>{movie}</td><td style='color:#fff;font-size:1.1em'>{collection}</td></tr>"
+            table_html += "</tbody></table>"
+            st.markdown(table_html, unsafe_allow_html=True)
+            st.markdown(f"<div style='color:#FFD700; font-size:1em; margin-top:4px;'>Records in this town: <b>{len(records)}</b></div>", unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='text-align:center; color:#FFD700; font-size:1.2em; margin-top:24px;'><b>Total Town Records: {total_town_records}</b></div>", unsafe_allow_html=True)
 
 elif nav_choice == "Center Wise Data":
+    def generate_centerwise_table(data, headers):
+        table_style = """
+        <style>
+        .centerwise-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+            font-size: 1.2em;
+            background: #23282c;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(255,215,0,0.25);
+        }
+        .centerwise-table th {
+            background: #FFD700;
+            color: #23282c;
+            font-weight: bold;
+            padding: 12px 10px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+        .centerwise-table td {
+            padding: 10px 10px;
+            color: #fff;
+            border-bottom: 1px solid #444;
+        }
+        .centerwise-table tr:nth-child(even) {
+            background: #2a2f33;
+        }
+        .centerwise-table tr:nth-child(odd) {
+            background: #23282c;
+        }
+        </style>
+        """
+        table_html = f"<table class='centerwise-table'><thead><tr>{''.join([f'<th>{h}</th>' for h in headers])}</tr></thead><tbody>"
+        for row in data:
+            table_html += "<tr>" + ''.join([f'<td>{cell}</td>' for cell in row]) + "</tr>"
+        table_html += "</tbody></table>"
+        return table_style + table_html
+
     if selected_centerwise_movie == "Gabbar Singh":
         st.markdown("<h2 style='color:#FFD700;'>Gabbar Singh - Center Wise Data</h2>", unsafe_allow_html=True)
         st.markdown("<div style='color:#FFD700; font-size:1em; margin-bottom:10px;'>Legend: <b>ATR</b> = All Time Record, <b>Sh</b> = Share</div>", unsafe_allow_html=True)
@@ -1194,91 +1319,93 @@ elif nav_choice == "Center Wise Data":
 
     elif selected_centerwise_movie == "Badri":
         st.markdown("<h2 style='color:#FFD700;'>Badri - Center Wise Data</h2>", unsafe_allow_html=True)
-        st.markdown("<div style='color:#FFD700; font-size:1em; margin-bottom:10px;'>Legend: <b>HF</b> = House Full, <b>Gross</b> = Gross Collection, <b>Share</b> = Share Collection</div>", unsafe_allow_html=True)
+        st.markdown("<div style='color:#FFD700; font-size:1em; margin-bottom:10px;'>Legend: <b>Gross</b> = Gross Collection, <b>Share</b> = Share Collection, <b>HF</b> = House Full</div>", unsafe_allow_html=True)
 
         # Hyderabad - Sandhya 35MM
-        badri_hyd = [
-            ("100 Days", "Gross - 73L", "Share - 44L"),
-            ("156 Days", "Gross - 90L", "Share - 47L")
-        ]
         st.markdown("<h4 style='color:#FFD700;'>Hyderabad : Sandhya 35MM</h4>", unsafe_allow_html=True)
-        st.markdown(generate_centerwise_table(badri_hyd, ["Run", "Gross", "Share"]), unsafe_allow_html=True)
+        badri_hyd = [
+            ("100 Days Gross", "73L"),
+            ("100 Days Share", "44L"),
+            ("156 Days Gross", "90L"),
+            ("156 Days Share", "47L")
+        ]
+        st.markdown(generate_centerwise_table(badri_hyd, ["Period", "Amount"]), unsafe_allow_html=True)
 
         # Vijayawada - Raj 70MM
-        badri_vij = [
-            ("100 Days", "53L", "30L")
-        ]
         st.markdown("<h4 style='color:#FFD700;'>Vijayawada : Raj 70MM</h4>", unsafe_allow_html=True)
-        st.markdown(generate_centerwise_table(badri_vij, ["Run", "Gross", "Share"]), unsafe_allow_html=True)
+        badri_vij = [
+            ("100 Days Gross", "53L"),
+            ("100 Days Share", "30L")
+        ]
+        st.markdown(generate_centerwise_table(badri_vij, ["Period", "Amount"]), unsafe_allow_html=True)
 
         # Vijayawada City Record
-        badri_vij_city = [
-            ("Full run - 141 Days", "62,56,007/-", "Theatre Record")
-        ]
         st.markdown("<h4 style='color:#FFD700;'>Vijayawada City Record</h4>", unsafe_allow_html=True)
-        st.markdown(generate_centerwise_table(badri_vij_city, ["Run", "Gross", "Remark"]), unsafe_allow_html=True)
+        badri_vij_city = [
+            ("Full Run (141 Days) Gross", "62,56,007/-"),
+            ("Record", "Theatre Record")
+        ]
+        st.markdown(generate_centerwise_table(badri_vij_city, ["Period/Note", "Amount"]), unsafe_allow_html=True)
 
         # Vizag - Jagadamba 70MM
-        badri_vizag = [
-            ("100 Days", "62,55,382", "31.50L"),
-            ("54 Days", "Non Stop all 4 shows HF everyday", ""),
-            ("Full Run - 113 Days Non", "65.80L", ""),
-            ("Remark", "Vizag city record for 70MM theatres", "")
-        ]
         st.markdown("<h4 style='color:#FFD700;'>Vizag : Jagadamba 70MM</h4>", unsafe_allow_html=True)
-        st.markdown(generate_centerwise_table(badri_vizag, ["Run", "Gross", "Share/Remark"]), unsafe_allow_html=True)
+        badri_vizag = [
+            ("100 Days Gross", "62,55,382"),
+            ("100 Days Share", "31.50L"),
+            ("54 Days", "Non Stop all 4 shows HF everyday"),
+            ("Full Run (113 Days Non)", "Gross - 65.80L"),
+            ("Record", "Vizag city record for 70MM theatres")
+        ]
+        st.markdown(generate_centerwise_table(badri_vizag, ["Period/Note", "Amount"]), unsafe_allow_html=True)
 
         # Kakinada - Sri Devi Theatre
-        badri_kakinada = [
-            ("100 Days", "28L", "17.60L"),
-            ("Remark", "Theatre record", "")
-        ]
         st.markdown("<h4 style='color:#FFD700;'>Kakinada : Sri Devi Theatre</h4>", unsafe_allow_html=True)
-        st.markdown(generate_centerwise_table(badri_kakinada, ["Run", "Gross", "Share/Remark"]), unsafe_allow_html=True)
-
-        # RJY - Ashoka Theatre
-        badri_rjy_ashoka = [
-            ("100 Days", "31L", "18.20L"),
-            ("Remark", "Theatre Record", "")
+        badri_kkd = [
+            ("100 Days Gross", "28L"),
+            ("100 Days Share", "17.60L"),
+            ("Record", "Theatre Record")
         ]
-        st.markdown("<h4 style='color:#FFD700;'>RJY : Ashoka Theatre</h4>", unsafe_allow_html=True)
-        st.markdown(generate_centerwise_table(badri_rjy_ashoka, ["Run", "Gross", "Share/Remark"]), unsafe_allow_html=True)
+        st.markdown(generate_centerwise_table(badri_kkd, ["Period/Note", "Amount"]), unsafe_allow_html=True)
+
+        # Rajahmundry - Ashoka Theatre
+        st.markdown("<h4 style='color:#FFD700;'>Rajahmundry : Ashoka Theatre</h4>", unsafe_allow_html=True)
+        badri_rjy = [
+            ("100 Days Gross", "31L"),
+            ("100 Days Share", "18.20L"),
+            ("Record", "Theatre Record")
+        ]
+        st.markdown(generate_centerwise_table(badri_rjy, ["Period/Note", "Amount"]), unsafe_allow_html=True)
 
         # Guntur - Liberty Theatres
-        badri_guntur = [
-            ("Full run 119 Days", "27,91,214/-", "")
-        ]
         st.markdown("<h4 style='color:#FFD700;'>Guntur : Liberty Theatres</h4>", unsafe_allow_html=True)
-        st.markdown(generate_centerwise_table(badri_guntur, ["Run", "Gross", "Share/Remark"]), unsafe_allow_html=True)
+        badri_guntur = [
+            ("Full Run (119 Days) Gross", "27,91,214/-")
+        ]
+        st.markdown(generate_centerwise_table(badri_guntur, ["Period", "Amount"]), unsafe_allow_html=True)
 
         # RJY - Ashoka Theatre (120 days)
-        badri_rjy_ashoka_120 = [
-            ("120 days", "33,77,065/-", "")
+        st.markdown("<h4 style='color:#FFD700;'>Rajahmundry : Ashoka Theatre (120 Days)</h4>", unsafe_allow_html=True)
+        badri_rjy_120 = [
+            ("120 Days Gross", "33,77,065/-")
         ]
-        st.markdown("<h4 style='color:#FFD700;'>RJY : Ashoka Theatre (120 days)</h4>", unsafe_allow_html=True)
-        st.markdown(generate_centerwise_table(badri_rjy_ashoka_120, ["Run", "Gross", "Share/Remark"]), unsafe_allow_html=True)
+        st.markdown(generate_centerwise_table(badri_rjy_120, ["Period", "Amount"]), unsafe_allow_html=True)
 
-        # Records
+        # Records Section
+        st.markdown("<h3 style='color:#FFD700;'>Records</h3>", unsafe_allow_html=True)
         st.markdown("<h4 style='color:#FFD700;'>100 Days Direct Centers</h4>", unsafe_allow_html=True)
-        st.markdown("""
-        <ul style='color:#FFD700; font-size:1.1em;'>
-            <li>
-                <b>100 Days Direct Centers:</b>
-                <ul style='color:#FFD700; font-size:1.1em;'>
-                    <li>Nizam - 8</li>
-                    <li>Ceeded - 2</li>
-                    <li>UA - 8</li>
-                    <li>Guntur - 5</li>
-                    <li>East Godavari - 6</li>
-                    <li>Krishna - 4</li>
-                    <li>West Godavari - 5</li>
-                    <li>Nellore - 1</li>
-                    <li><b>Total - 39 Centers</b></li>
-                </ul>
-            </li>
-            <li>East Godavari Dist Only 8 Centers 100 Days Share:- 78L+ Blockbuster Run</li>
-        </ul>
-        """, unsafe_allow_html=True)
+        st.markdown(generate_centerwise_table([
+            ("Nizam", "8"),
+            ("Ceeded", "2"),
+            ("UA", "8"),
+            ("Guntur", "5"),
+            ("East Godavari", "6"),
+            ("Krishna", "4"),
+            ("West Godavari", "5"),
+            ("Nellore", "1"),
+            ("Total", "39 Centers")
+        ], ["Area", "No. of Centers"]), unsafe_allow_html=True)
+
+        st.markdown("<div style='color:#FFD700; font-size:1.1em; margin-bottom:10px;'>East Godavari Dist Only 8 Centers 100 Days Share: <b>78L+</b> Blockbuster Run</div>", unsafe_allow_html=True)
 
 # Footer
 st.markdown("""
