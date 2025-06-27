@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import os
 
 def generate_custom_table(data, headers):
     table_style = """
@@ -483,7 +484,11 @@ if nav_choice == "Records":
                             <span style='color: #FFD700; font-size: 1.1em;'>{movie['Collection (Cr)']} Cr</span>
                         </div>
                     """, unsafe_allow_html=True)
-                    st.image(image_paths[movie["Movie"]])
+                    img_path = image_paths.get(movie["Movie"], "")
+                    if img_path and os.path.exists(img_path):
+                        st.image(img_path, use_container_width=True)
+                    else:
+                        st.markdown("<div style='color:#FFD700;'>Image not available</div>", unsafe_allow_html=True)
                     st.markdown(f"""
                         <div style='text-align: center; margin-top: 10px; margin-bottom: 30px;'>
                             <span style='color: #E0E0E0; background: #333; padding: 4px 12px; border-radius: 8px; font-size: 1em;'>{movie['Status']}</span>
@@ -521,7 +526,11 @@ if nav_choice == "Records":
                             <span style='color: #FFD700; font-size: 1.1em;'>{movie['Collection (Cr)']} Cr</span>
                         </div>
                     """, unsafe_allow_html=True)
-                    st.image(image_paths[movie["Movie"]])
+                    img_path = image_paths.get(movie["Movie"], "")
+                    if img_path and os.path.exists(img_path):
+                        st.image(img_path, use_container_width=True)
+                    else:
+                        st.markdown("<div style='color:#FFD700;'>Image not available</div>", unsafe_allow_html=True)
                     st.markdown(f"""
                         <div style='text-align: center; margin-top: 10px; margin-bottom: 30px;'>
                             <span style='color: #E0E0E0; background: #333; padding: 4px 12px; border-radius: 8px; font-size: 1em;'>{movie['Status']}</span>
@@ -559,7 +568,11 @@ if nav_choice == "Records":
                             <span style='color: #FFD700; font-size: 1.1em;'>{movie['Collection (Cr)']} Cr</span>
                         </div>
                     """, unsafe_allow_html=True)
-                    st.image(image_paths.get(movie["Movie"], ""))
+                    img_path = image_paths.get(movie["Movie"], "")
+                    if img_path and os.path.exists(img_path):
+                        st.image(img_path, use_container_width=True)
+                    else:
+                        st.markdown("<div style='color:#FFD700;'>Image not available</div>", unsafe_allow_html=True)
                     st.markdown(f"""
                         <div style='text-align: center; margin-top: 10px; margin-bottom: 30px;'>
                             <span style='color: #E0E0E0; background: #333; padding: 4px 12px; border-radius: 8px; font-size: 1em;'>{movie['Status']}</span>
@@ -595,7 +608,11 @@ if nav_choice == "Records":
                             <span style='color: #FFD700; font-size: 1.1em;'>{movie['Collection']}</span>
                         </div>
                     """, unsafe_allow_html=True)
-                    st.image(image_paths.get(movie["Movie"], ""))
+                    img_path = image_paths.get(movie["Movie"], "")
+                    if img_path and os.path.exists(img_path):
+                        st.image(img_path, use_container_width=True)
+                    else:
+                        st.markdown("<div style='color:#FFD700;'>Image not available</div>", unsafe_allow_html=True)
                     st.markdown(f"""
                         <div style='text-align: center; margin-top: 10px; margin-bottom: 30px;'>
                             <span style='color: #E0E0E0; background: #333; padding: 4px 12px; border-radius: 8px; font-size: 1em;'>{movie['Status']}</span>
@@ -808,8 +825,11 @@ if nav_choice == "Records":
                 st.markdown(f"<div class='section-container' style='margin-bottom:32px;'>", unsafe_allow_html=True)
                 cols = st.columns([1, 3])
                 with cols[0]:
-                    if record["image"]:
-                        st.image(record["image"], use_container_width=True)
+                    img_path = record["image"]
+                    if img_path and os.path.exists(img_path):
+                        st.image(img_path, use_container_width=True)
+                    else:
+                        st.markdown("<div style='color:#FFD700;'>Image not available</div>", unsafe_allow_html=True)
                 with cols[1]:
                     st.markdown(f"<h3 style='color:#FFD700;'>{record['title']}</h3>", unsafe_allow_html=True)
                     table_html = "<table class='custom-table'><tbody>"
