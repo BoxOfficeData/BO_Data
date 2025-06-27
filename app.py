@@ -270,7 +270,7 @@ image_paths = {
     "Agnyaathavaasi": "Agynatavasi.jpg",
     "Vakeel Saab": "Vakeelsaab.jpg",
     "Bheemla Nayak": "bheemla-nayak.jpeg",
-    "Kushi": "KUSHI.JPG",
+    "Kushi": "Kushi_PSPK.jpg",
     "Badri": "Badri.jpeg",
     "Thammudu": "Thammudu.jpg"
 }
