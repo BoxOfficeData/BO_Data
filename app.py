@@ -295,7 +295,8 @@ elif nav_choice == "Center Wise Data":
     "CameraMan Gangatho Rambabu",
     "Kushi (Re-Release)",
     "Annavaram",
-    "Badri"
+    "Badri",
+    "Jalsa (Special Shows)"
     ]
     selected_centerwise_movie = st.sidebar.selectbox("Select Movie", centerwise_movies)
     selected_record_type = None
@@ -1510,6 +1511,55 @@ elif nav_choice == "Center Wise Data":
         ], ["Area", "No. of Centers"]), unsafe_allow_html=True)
 
         st.markdown("<div style='color:#FFD700; font-size:1.1em; margin-bottom:10px;'>East Godavari Dist Only 8 Centers 100 Days Share: <b>78L+</b> Blockbuster Run</div>", unsafe_allow_html=True)
+
+    elif selected_centerwise_movie == "Jalsa (Special Shows)":
+        st.markdown("<h2 style='color:#FFD700;'>Jalsa (Special Shows) - Center Wise Data</h2>", unsafe_allow_html=True)
+
+        # Nizam
+        jalsa_nizam = [
+            ("Prasads", "35L"),
+            ("X Roads", "11.63L"),
+            ("BVK LB NAGAR", "4L"),
+            ("GPR", "6.36L"),
+            ("KARIMANAGR", "3.13L"),
+            ("KHAMMAM", "2.64L"),
+            ("MAHBUBNAGAR", "2.4L"),
+            ("WARANGAL", "5.04L")
+        ]
+        st.markdown("<h4 style='color:#FFD700;'>Nizam</h4>", unsafe_allow_html=True)
+        st.markdown(generate_centerwise_table(jalsa_nizam, ["Center", "Collection"]), unsafe_allow_html=True)
+
+        # West
+        jalsa_west = [
+            ("BHIMAVARAM", "1.61L"),
+            ("Eluru", "3.15L")
+        ]
+        st.markdown("<h4 style='color:#FFD700;'>West</h4>", unsafe_allow_html=True)
+        st.markdown(generate_centerwise_table(jalsa_west, ["Center", "Collection"]), unsafe_allow_html=True)
+
+        # UA
+        jalsa_ua = [
+            ("Vizag", "6.83L"),
+            ("Srikakulam", "2.07L"),
+            ("Vizianagaram", "1.91L")
+        ]
+        st.markdown("<h4 style='color:#FFD700;'>UA</h4>", unsafe_allow_html=True)
+        st.markdown(generate_centerwise_table(jalsa_ua, ["Center", "Collection"]), unsafe_allow_html=True)
+
+        # Ceeded
+        jalsa_ceeded = [
+            ("Kadapa", "2.51L"),
+            ("Guntakal", "53K")
+        ]
+        st.markdown("<h4 style='color:#FFD700;'>Ceeded</h4>", unsafe_allow_html=True)
+        st.markdown(generate_centerwise_table(jalsa_ceeded, ["Center", "Collection"]), unsafe_allow_html=True)
+
+        # Guntur
+        jalsa_guntur = [
+            ("Guntur city", "3.2L")
+        ]
+        st.markdown("<h4 style='color:#FFD700;'>Guntur</h4>", unsafe_allow_html=True)
+        st.markdown(generate_centerwise_table(jalsa_guntur, ["Center", "Collection"]), unsafe_allow_html=True)
 
 # Footer
 st.markdown("""
