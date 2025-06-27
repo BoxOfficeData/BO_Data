@@ -865,6 +865,26 @@ if nav_choice == "Records":
                     ("Total World Wide", "3.20CR Gross")
                 ],
                 "note": None
+            },
+            {
+                "title": "Gabbar Singh",
+                "image": image_paths.get("Gabbar Singh", ""),
+                "data": [
+                    ("Nizam", "19.5CR"),
+                    ("Ceeded", "9.30CR"),
+                    ("UA", "5.50CR"),
+                    ("East", "3.75CR"),
+                    ("West", "3.20CR"),
+                    ("Krishna", "3.20CR"),
+                    ("Guntur", "4.35CR"),
+                    ("Nellore", "2.05CR"),
+                    ("AP/TS", "50.85CR"),
+                    ("KA", "3.30CR"),
+                    ("ROI", "0.90CR"),
+                    ("OS", "5.50CR"),
+                    ("TOTAL WORLD WIDE", "60.55CR")
+                ],
+                "note": "[ALL TIME TOP 2 OVERALL]<br>NON-SSR INDUSTRY HIT"
             }
         ]
         st.markdown("<h2 style='color:#FFD700;'>Closing Records</h2>", unsafe_allow_html=True)
