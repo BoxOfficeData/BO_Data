@@ -426,7 +426,7 @@ re_release_data = {
     ],
     "Coastal AP": [
         {"Movie": "Gabbar Singh", "Collection (Cr)": 2.35, "Status": "All Time Record"},
-        {"Movie": "Kushi", "Collection (Cr)": 1.11, "Status": "All Time Record"},
+        {"Movie": "Kushi", "Collection (Cr)": 1.11, "Status": "Top 2"},
         {"Movie": "Jalsa", "Collection (Cr)": 1.55, "Status": "All Time Record"},
     ],
     "AP/TS": [
