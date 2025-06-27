@@ -819,6 +819,52 @@ if nav_choice == "Records":
                     ("WORLDWIDE", "18.8 Crores")
                 ],
                 "note": None
+            },
+            # Add Kushi (Re-Release) closing record
+            {
+                "title": "Kushi (Re-Release)",
+                "image": image_paths.get("Kushi", ""),
+                "data": [
+                    ("Vizag(UA)", "₹40 Lkhs - ₹42 Lkhs"),
+                    ("East", "₹42 Lkhs"),
+                    ("West", "₹14 Lkhs"),
+                    ("Krishna", "₹40 Lkhs"),
+                    ("Guntur", "₹33 Lkhs"),
+                    ("Nellore", "₹9 Lkhs"),
+                    ("Andhra", "₹1.8 CR Approx"),
+                    ("Ceded", "₹80 Lkhs (Incl bellary)"),
+                    ("Nizam", "₹2.85 CR"),
+                    ("Total Ap/Tg", "₹5.45 CR Approx"),
+                    ("Karnataka", "₹42 Lkhs"),
+                    ("TN + Rest of India", "₹14 Lkhs"),
+                    ("Total All India Gross", "₹6.01 CR Approx"),
+                    ("Overseas", "₹37 Lkhs"),
+                    ("USA + Canada", "$24,296 (₹19.7 Lkhs)"),
+                    ("Australia", "$8,141 (₹4.3 Lkhs)"),
+                    ("UK", "£13,211 (₹13 Lkhs)"),
+                    ("Total Worldwide Gross", "₹6.38 CR Approx")
+                ],
+                "note": "ALL TIME RECORD IN RE-RELEASES"
+            },
+            # Add Jalsa (Special Shows) closing record
+            {
+                "title": "Jalsa (Special Shows)",
+                "image": image_paths.get("Jalsa", ""),
+                "data": [
+                    ("Nizam", "1.26Cr"),
+                    ("Ceeded", "39L"),
+                    ("UA", "26L"),
+                    ("East", "9L"),
+                    ("West", "14L"),
+                    ("Guntur", "11L"),
+                    ("Krishna", "22L"),
+                    ("Nellore", "11L"),
+                    ("AP-TG Total", "2.57CR Gross"),
+                    ("Rest of India", "22L~"),
+                    ("Overseas", "40L~"),
+                    ("Total World Wide", "3.20CR Gross")
+                ],
+                "note": None
             }
         ]
         st.markdown("<h2 style='color:#FFD700;'>Closing Records</h2>", unsafe_allow_html=True)
