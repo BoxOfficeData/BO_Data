@@ -42,6 +42,46 @@ def generate_custom_table(data, headers):
     table_html += "</tbody></table>"
     return table_style + table_html
 
+def generate_centerwise_table(data, headers):
+    table_style = """
+    <style>
+    .centerwise-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 24px;
+        font-size: 1.2em;
+        background: #23282c;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(255,215,0,0.25);
+    }
+    .centerwise-table th {
+        background: #FFD700;
+        color: #23282c;
+        font-weight: bold;
+        padding: 12px 10px;
+        text-align: left;
+        font-size: 1.1em;
+    }
+    .centerwise-table td {
+        padding: 10px 10px;
+        color: #fff;
+        border-bottom: 1px solid #444;
+    }
+    .centerwise-table tr:nth-child(even) {
+        background: #2a2f33;
+    }
+    .centerwise-table tr:nth-child(odd) {
+        background: #23282c;
+    }
+    </style>
+    """
+    table_html = f"<table class='centerwise-table'><thead><tr>{''.join([f'<th>{h}</th>' for h in headers])}</tr></thead><tbody>"
+    for row in data:
+        table_html += "<tr>" + ''.join([f'<td>{cell}</td>' for cell in row]) + "</tr>"
+    table_html += "</tbody></table>"
+    return table_style + table_html
+
 # Set page configuration for wide layout and cinematic theme
 st.set_page_config(page_title="Pawan Kalyan Records", layout="wide", page_icon="🎬")
 
@@ -277,7 +317,7 @@ image_paths = {
 
 # Sidebar navigation
 st.sidebar.title("Pawan Kalyan Records")
-nav_options = ["Records", "Center Wise Data"]
+nav_options = ["Records", "Center Wise Data", "100 Days Centers"]
 nav_choice = st.sidebar.radio("Go to", nav_options)
 
 if nav_choice == "Records":
@@ -296,10 +336,257 @@ elif nav_choice == "Center Wise Data":
     "Kushi (Re-Release)",
     "Annavaram",
     "Badri",
-    "Jalsa (Special Shows)"
+    "Jalsa (Special Shows)",
+    "Katamarayudu",
+    "Bro"
     ]
-    selected_centerwise_movie = st.sidebar.selectbox("Select Movie", centerwise_movies)
+    selected_centerwise_movie = st.sidebar.selectbox("Select Movie", centerwise_movies, key="select_centerwise_movie")
     selected_record_type = None
+elif nav_choice == "100 Days Centers":
+    st.markdown("<h2 style='color:#FFD700;'>100 Days Centers</h2>", unsafe_allow_html=True)
+    movie_options = [
+        "Akkada Ammai Ikkada Abbay",
+        "GokulamloSitha",
+        "Suswagatham",
+        "Tholiprema",
+        "Thammudu",
+        "Badri",
+        "Kushi",
+        "Balu abcdefg",
+        "Bangaram",
+        "Annavaram",
+        "Attarintiki Daredi",
+        "Gabbar Singh"
+    ]
+    selected_100days_movie = st.selectbox("Select Movie", movie_options, key="select_100days_movie")
+    movie_100days_data = {
+        "Akkada Ammai Ikkada Abbay": [
+            ("Kurnool", "lakshmi"),
+            ("Guntur", "Bala bhaskar")
+        ],
+        "GokulamloSitha": [
+            ("Kakinada", "Sridevi"),
+            ("Kurnool", "lakshmi")
+        ],
+        "Suswagatham": [
+            ("Kurnool", "lakshmi"),
+            ("Rajamundry", "Menaka"),
+            ("Eluru", "MiniVijaylakshmi"),
+            ("Bhimavaram", "Ghovardhan"),
+            ("Guntur", "Naaz"),
+            ("Tenali", "laksmipriya"),
+            ("Vijaywada", "Alankar"),
+            ("Vizag", "Srikanthi"),
+            ("Anakapalli", "Satyanarayana")
+        ],
+        "Tholiprema": [
+            ("Hyderabad", "Sandhya 70mm"),
+            ("Kadapah", "Ameer"),
+            ("Kurnool", "Navarang"),
+            ("Vizag", "Leelamahal"),
+            ("Srikakulam", "Murali"),
+            ("Anakapalli", "Gopalasawami"),
+            ("Rajamundry", "Swamy"),
+            ("Kakinada", "Sridevi"),
+            ("Amalapuram", "Venkatarama"),
+            ("Eluru", "satyanarayana"),
+            ("Bhimavaram", "Mahalakshmi"),
+            ("palakollu", "gajalakshmi"),
+            ("Vijaywada", "Sailaja"),
+            ("Guntur", "Liberty"),
+            ("Tenali", "Lakshmi"),
+            ("Nellore", "Kaveri")
+        ],
+        "Thammudu": [
+            ("Kurnool", "Alankar"),
+            ("Vizag", "Sangam"),
+            ("Gajuwaka", "Lakshmikanth"),
+            ("Srikakulam", "Kirthana"),
+            ("Rajamundry", "Ashok"),
+            ("Kakinada", "Sridevi"),
+            ("Amalapuram", "Ramamahal"),
+            ("Eluru", "SaiBalaji"),
+            ("Bhimavaram", "Natraj"),
+            ("Vijaywada", "Yuvaraj"),
+            ("Machilipatnam", "Ramsanthi"),
+            ("Gudiwada", "GopalaKrishna"),
+            ("Guntur", "Liberty"),
+            ("Ongole", "Tulasiram"),
+            ("Nellore", "Kaveri"),
+            ("Hyderabad", "Sandhya 35mm"),
+            ("Dilshuknagar", "Rajadhani"),
+            ("Warangal", "Devi"),
+            ("Khammam", "Raghava"),
+            ("Nizamabad", "Ashok"),
+            ("Kothagudem", "Viswanadh"),
+            ("Madanapalli", "Sidhartha")
+        ],
+        "Badri": [
+            ("Gajuwaka", "Mohini"),
+            ("Vijayanagaram", "NCS"),
+            ("Srikakulam", "Kinnera"),
+            ("Anakapalli", "Gopalakrishna"),
+            ("Payakaraopeta", "Sai"),
+            ("Sompeta", "Srinivasa"),
+            ("Narsipatnam", "Srinivasa"),
+            ("Hyderabad", "Sandhya 35MM"),
+            ("Nizamabad", "Rajarajendra"),
+            ("Khammam", "Vinoda"),
+            ("Miryalaguda", "Lalitha"),
+            ("Kothagudem", "Maheswari"),
+            ("Godavarikhani", "Rajesh"),
+            ("Rajamundry", "Ashok"),
+            ("Kakinada", "Sridevi"),
+            ("Amalapuram", "Venkatarama"),
+            ("Mandapeta", "Satyasri"),
+            ("Thatipaka", "Annapurna"),
+            ("Pitapuram", "Sougandhi"),
+            ("Eluru", "Nataraja"),
+            ("Bheemavaram", "Nataraja"),
+            ("TP Gudem", "Rangamahal"),
+            ("Tanuku", "Lakshmi"),
+            ("Palakollu", "Lakshmi Sai"),
+            ("Vijayawada", "Raj"),
+            ("Machalipatnam", "Venkateswara"),
+            ("Gudiwada", "Gopalakrishna"),
+            ("Vuyyuru", "Thandava Lakshmi"),
+            ("Guntur", "Liberty"),
+            ("Tenali", "Lakshmi"),
+            ("Ongole", "Sridevi"),
+            ("Chilakaluripeta", "Kalamandir"),
+            ("Narasaraopeta", "Easwar"),
+            ("Nellore", "Narthaki"),
+            ("Ananthapur", "Gowri"),
+            ("Kurnool", "Anand")
+        ],
+        "Kushi": [
+            ("RTC Crossroads", "Sandhya 70mm DTS"),
+            ("Secunderabad", "Natraj 70mm DTS"),
+            ("Dilshuknagar", "Konark"),
+            ("Kukatpalli", "Vishwanath 70mm DTS"),
+            ("RC Puram", "Srinivasa 70mm DTS"),
+            ("Malkajgiri", "Raghavendra 35mm DTS"),
+            ("Warangal", "Radhika 70mm DTS"),
+            ("Nizamabad", "Lalitha Mahal 70mm DTS"),
+            ("Khammam", "Nartaki 70mm DTS"),
+            ("Karim Nagar", "Srinivasa 70mm DTS"),
+            ("Mehaboob Nagar", "Maheshari 70mm DTS"),
+            ("Miryalaguda", "Lalitha Picture Palace"),
+            ("Kodada", "Venkateswara 70mm"),
+            ("Suryapet", "Ramalingeswara"),
+            ("Visakhapatnam", "Sangam 70mm DTS"),
+            ("Gajuwaka", "Kanya DTS"),
+            ("104 Area", "Lakshmi Narasimha"),
+            ("Vijaya Nagaram", "Saptagiri DTS"),
+            ("Srikakulam", "Kinnera DTS"),
+            ("Anakapalli", "Sri Satya DTS"),
+            ("Palasa", "Harisankara"),
+            ("Tagarapuvalasa", "seetarama"),
+            ("Pakairaopeta", "Sai mahal"),
+            ("Rajahmundry", "Swamy DTS"),
+            ("Kakinada", "Satyagowri DTS"),
+            ("Amalapuram", "Venkatrama"),
+            ("Mandapeta", "Saptagiri DTS"),
+            ("Tatipaka", "Srinivasa"),
+            ("Pitapuram", "Annapurna"),
+            ("Eluru", "Mini Satyanarayana DTS"),
+            ("Bheemavaram", "Sri Vijayalaxmi DTS"),
+            ("Tadepalligudem", "Mani Chalapati"),
+            ("Tanuku", "Venkateswara Talkies DTS"),
+            ("Jangareddygudem", "Lakshmi Narayana"),
+            ("Palakollu", "Vijayachitra"),
+            ("Nidadavolu", "Venkateswara"),
+            ("Vijayawada", "Raj 70mm DTS"),
+            ("Vijayawada", "Sesh Mahal"),
+            ("Kanuru", "Vijaya lakshmi"),
+            ("Gudiwada", "Ganga Mahal"),
+            ("Machilipatnam", "Venkateswara"),
+            ("Jaggayyapeta", "Apsara"),
+            ("Tiruvuru", "Venkatrama"),
+            ("Uyyuru", "Tandava Lakshmi"),
+            ("Guntur", "Krishna Picture Palace"),
+            ("Tenali", "Lakshmi"),
+            ("Ongole", "Vijaya Durga"),
+            ("Cheerala", "Gopala Krishna"),
+            ("Chilakaluripeta", "srinivasa"),
+            ("Narsaraopeta", "Lakshmi Narasimha"),
+            ("Sattenapalli", "Lakshmi Talkies"),
+            ("Nellore", "Archana 70mm DTS"),
+            ("Kavali", "Spandana"),
+            ("Guduru", "CS Teja"),
+            ("Kandukur", "Prasanthi"),
+            ("Tirupati", "Pratap DTS"),
+            ("Chittoor", "Chanakya DTS"),
+            ("Madanapalli", "Siddhardha Picture Palace"),
+            ("Srikalahasti", "Sairam"),
+            ("Peeleru", "SV Deluxe"),
+            ("Ananthapuram", "Gowry DTS"),
+            ("Tadipatri", "Lakshmi Narayana"),
+            ("Hindupur", "Amrut"),
+            ("Dharmavaram", "Varalakshmi"),
+            ("Guntakal", "Geeta Chitralaya"),
+            ("Karnool", "Alankar DTS"),
+            ("Nandyala", "pratap DTS"),
+            ("Adoni", "Sivam DTS"),
+            ("Emmigannoor", "Mini Siva"),
+            ("Done", "Raja Talkies"),
+            ("Cudappah", "Vishwam DTS"),
+            ("Proddutur", "Vijay Kumar"),
+            ("Pulivendula", "Rajyalakshmi Mahal"),
+            ("Railway Kodur", "Krishna Theatre"),
+            ("Rajampet", "PS Picture Palace"),
+            ("Rayachoti", "Prasad AC"),
+            ("Chennai", "Subham AC DTS (3 shows)"),
+            ("Ballary", "Nataraj DTS"),
+            ("Allagadda", "Bhavani")
+        ],
+        "Balu abcdefg": [
+            ("Guntur", "Naaz Delux")
+        ],
+        "Bangaram": [
+            ("Vijayawada", "Santhi"),
+            ("Vizag", "Sri Kanya"),
+            ("Payakaraopeta", "Sai Mahal"),
+            ("Thadepalli Gudem", "jayalakshmi"),
+            ("Gudur", "Sasi Mahal")
+        ],
+        "Annavaram": [
+            ("Vijayawada", "Raj 70 MM AC"),
+            ("Gudiwada", "Sarath"),
+            ("Machalipatnam", "Siri Venkat"),
+            ("Amalapuram", "Sri Ganapati Palace"),
+            ("Gopalapatnam", "Sri Narasimha"),
+            ("Ananthapur", "Gowri Palace"),
+            ("Kurnool", "Ashwani")
+        ],
+        "Attarintiki Daredi": [
+            ("Hyderabad",), ("Karimnagar",), ("Nizamabad",), ("Mahaboobnagar",), ("Miryalaguda",), ("Chittor",), ("Hindhupur",), ("Ananthapur",), ("Yemmiganur",), ("Nandhyala",), ("Aadhoni",), ("Kurnool",), ("Jammalamadugu",), ("Madanapalli",), ("Punganuru",), ("Guntur",), ("Tenali",), ("Sattenapalli",), ("Chilakaluripeta",), ("Vijayawada",), ("Vijayawada- 1",), ("Gudiwada",), ("Machilipatnam",), ("Rajamundry",), ("Kakinada",), ("Amalapuram",), ("Mandapeta",), ("Tatipaka",), ("Vizag",), ("Eluru",), ("Tadapalli Gudem",)
+        ],
+        "Gabbar Singh": [
+            ("Nizam", "Hyderabad"), ("Nizam", "Karimnagar"), ("Nizam", "Khammam"), ("Nizam", "Nizamabad"), ("Nizam", "Nirmal"), ("Nizam", "Shadnagar"),
+            ("Ceded", "Madanapalle"), ("Ceded", "Tirupati"), ("Ceded", "Chittor"), ("Ceded", "Kalahasti"), ("Ceded", "Punganur"), ("Ceded", "Kurnool"), ("Ceded", "Dhone"), ("Ceded", "Nandyala"), ("Ceded", "Adoni"), ("Ceded", "Nandikotkur"), ("Ceded", "Anantapur"), ("Ceded", "Dharmavaram"), ("Ceded", "Proddatur"), ("Ceded", "Kodur"), ("Ceded", "Jammalamadugu"), ("Ceded", "Kadapa"),
+            ("Guntur", "Guntur"), ("Guntur", "Chirala"), ("Guntur", "Narasaraopeta"), ("Guntur", "Chilakaluripeta"), ("Guntur", "Addanki"),
+            ("Krishna", "Vijayawada"), ("Krishna", "Bandar"), ("Krishna", "Gudivada"),
+            ("West", "Eluru"), ("West", "Bhimavaram"), ("West", "Palakollu"),
+            ("East", "Kakinada"), ("East", "Rajahmundry"), ("East", "Amalapuram"), ("East", "Pithapuram"), ("East", "Mandapeta"), ("East", "Tatipaka"), ("East", "Kothapeta"), ("East", "Jaggampeta"), ("East", "Ramachandrapuram"),
+            ("UA", "Vizag"), ("UA", "Gajuwaka"), ("UA", "Bobbili"), ("UA", "Srikakulam"), ("UA", "Vijayanagaram"), ("UA", "Gopalapatnam"), ("UA", "Payakarao peta"), ("UA", "Parvatipuram"), ("UA", "Palasa"), ("UA", "Cheepurupalli"), ("UA", "Chittivalasa")
+        ]
+    }
+    if selected_100days_movie:
+        data = movie_100days_data.get(selected_100days_movie, [])
+        if data:
+            if selected_100days_movie == "Attarintiki Daredi":
+                st.markdown(f"<h3 style='color:#FFD700;'>{selected_100days_movie} - 100 Days Centers</h3>", unsafe_allow_html=True)
+                st.markdown(generate_centerwise_table(data, ["Centre"]), unsafe_allow_html=True)
+            elif selected_100days_movie == "Gabbar Singh":
+                st.markdown(f"<h3 style='color:#FFD700;'>{selected_100days_movie} - 100 Days Centers</h3>", unsafe_allow_html=True)
+                st.markdown(generate_centerwise_table(data, ["Region", "Centre"]), unsafe_allow_html=True)
+                st.markdown("<div style='color:#FFD700; font-size:1.1em; margin-top:8px;'><b>Total – 54</b></div>", unsafe_allow_html=True)
+            else:
+                st.markdown(f"<h3 style='color:#FFD700;'>{selected_100days_movie} - 100 Days Centers</h3>", unsafe_allow_html=True)
+                st.markdown(generate_centerwise_table(data, ["Centre", "Theatre Name"]), unsafe_allow_html=True)
+        else:
+            st.markdown("<div style='color:#FFD700;'>No data available for this movie.</div>", unsafe_allow_html=True)
 
 # First Week Records Data
 first_week_data = {
@@ -952,46 +1239,6 @@ if nav_choice == "Records":
         st.markdown(f"<div style='text-align:center; color:#FFD700; font-size:1.2em; margin-top:24px;'><b>Total Town Records: {total_town_records}</b></div>", unsafe_allow_html=True)
 
 elif nav_choice == "Center Wise Data":
-    def generate_centerwise_table(data, headers):
-        table_style = """
-        <style>
-        .centerwise-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 24px;
-            font-size: 1.2em;
-            background: #23282c;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(255,215,0,0.25);
-        }
-        .centerwise-table th {
-            background: #FFD700;
-            color: #23282c;
-            font-weight: bold;
-            padding: 12px 10px;
-            text-align: left;
-            font-size: 1.1em;
-        }
-        .centerwise-table td {
-            padding: 10px 10px;
-            color: #fff;
-            border-bottom: 1px solid #444;
-        }
-        .centerwise-table tr:nth-child(even) {
-            background: #2a2f33;
-        }
-        .centerwise-table tr:nth-child(odd) {
-            background: #23282c;
-        }
-        </style>
-        """
-        table_html = f"<table class='centerwise-table'><thead><tr>{''.join([f'<th>{h}</th>' for h in headers])}</tr></thead><tbody>"
-        for row in data:
-            table_html += "<tr>" + ''.join([f'<td>{cell}</td>' for cell in row]) + "</tr>"
-        table_html += "</tbody></table>"
-        return table_style + table_html
-
     if selected_centerwise_movie == "Gabbar Singh":
         st.markdown("<h2 style='color:#FFD700;'>Gabbar Singh - Center Wise Data</h2>", unsafe_allow_html=True)
         st.markdown("<div style='color:#FFD700; font-size:1em; margin-bottom:10px;'>Legend: <b>ATR</b> = All Time Record, <b>Sh</b> = Share</div>", unsafe_allow_html=True)
@@ -1170,14 +1417,172 @@ elif nav_choice == "Center Wise Data":
         ]
         st.markdown("<ul style='color:#FFD700; font-size:1.1em;'>" + ''.join([f"<li>{center}</li>" for center in centers_1cr]) + "</ul>", unsafe_allow_html=True)
 
+        # Nizam First Week Center Data
+        st.markdown("<h4 style='color:#FFD700;'>Nizam First Week Center Data</h4>", unsafe_allow_html=True)
+        vs_nizam_first_week = [
+            ("KHAMMAM", "88.44L [TOP2]"),
+            ("KARIMNAGAR", "87.11L [TOP 3]")
+        ]
+        st.markdown(generate_centerwise_table(vs_nizam_first_week, ["Center", "1st Week Collection"]), unsafe_allow_html=True)
+
+        # East Godavari 1st Week Shares
+        st.markdown("<h4 style='color:#FFD700;'>East Godavari 1st Week Shares</h4>", unsafe_allow_html=True)
+        vs_eg_1w = [
+            ("Amalapuram", "52.24L"),
+            ("Mandapeta", "35L"),
+            ("Pithapuram", "18.63L"),
+            ("Anaparthi", "9.3L")
+        ]
+        st.markdown(generate_centerwise_table(vs_eg_1w, ["Center", "1st Week Share"]), unsafe_allow_html=True)
+
     elif selected_centerwise_movie == "Bheemla Nayak":
         st.markdown("<h2 style='color:#FFD700;'>Bheemla Nayak - 1st Day Gross</h2>", unsafe_allow_html=True)
         st.markdown("<div style='color:#FFD700; font-size:1em; margin-bottom:10px;'>Legend: <b>Sh</b> = Share</div>", unsafe_allow_html=True)
         bn_day1_gross = [
-            ("Khammam", "49.98L"), ("X- Roads", "39L"), ("Tirupathi", "36L"), ("Karimnagar", "31.58L"), ("Kurnool", "30.83L"), ("Kadapa", "30.5L"), ("Anantapur", "28.15L"), ("Bhimavaram", "27.67L"), ("Nizamabad", "25.16L"), ("Mahaboobnagar", "24L"), ("Eluru", "22L"), ("Vizianagaram", "19.79L"), ("Adoni", "14.37L"), ("Tadipatri", "13.72L"), ("Macherial", "13.5L"), ("Srikakulam", "13.27L"), ("Godavarikhani", "13L"), ("Gajuwaka", "12.14L"), ("Guntakal", "12L"), ("Miryalaguda", "12L"), ("Hindupur", "11.57L"), ("Kodad", "11.2L"), ("Shadnagar", "11L"), ("Satthupally", "9.86L"), ("Nandyala", "9.84L"), ("Amalapuram", "9.63L"), ("Kothagudem", "8.9L"), ("Dharmavaram", "8.5L"), ("Allagadda", "7.96L"), ("Kadiri", "7.02L"), ("Kavali", "6.75L"), ("Pithapuram", "6.12L"), ("Yemmiganur", "5.92L"), ("Palasa", "5.1L"), ("Nandikotkur", "4.5L"), ("Chirala", "5.44L"), ("Tangutur", "3.15L"), ("Bapatla", "3.05L"), ("Mandapeta", "12.63L (Sh)"),
-            ("Nalgonda", "16L"), ("Wanaparthy", "5.3L"), ("Manugur", "5.28L")
+            ("Khammam", "49,98,570 [ ATR ]"),
+            ("Karimnagar", "31,58,307 [ ATR ]"),
+            ("Kodad", "11.2L [ ATR ]"),
+            ("AMB", "17.72L [ ATR ]"),
+            ("Mahabubnagar", "24L [ ATR ]"),
+            ("Prasads", "31,69,185 [ ATR ]"),
+            ("X ROADS", "39L [ TOP 2]"),
+            ("Nizamabad", "25.16L [ ATR ]"),
+            ("Nalgonda", "16L [ ATR]"),
+            ("Miryalaguda", "12L [ ATR ]"),
+            ("Warangal", "27,79,975"),
+            ("Wanaparthy", "5.3L"),
+            ("Manugur", "5.28L"),
+            ("Shadnagar", "11L[ ATR ]"),
+            ("Satthupally", "9.86L[ATR]"),
+            ("Cineplanet Kompally", "18.6L[ATR]"),
+            ("Macherial", "13.5L[ATR]"),
+            ("Satthupally", "9.86L[ATR]"),
+            ("Kothagudem", "8.9L[ATR]")
         ]
-        st.markdown(generate_centerwise_table(bn_day1_gross, ["Center", "1st Day Gross"]), unsafe_allow_html=True)
+        st.markdown("<h3 style='color:#FFD700;'>BHEEMLA NAYAK  DAY 1 CENTER RECORDS IN NIZAM</h3>", unsafe_allow_html=True)
+        st.markdown(generate_centerwise_table(bn_day1_gross, ["Center", "Day 1 Collection"]), unsafe_allow_html=True)
+
+        # 1st Week Gross
+        st.markdown("<h3 style='color:#FFD700;'>Bheemla Nayak 1st Week Gross</h3>", unsafe_allow_html=True)
+        bn_first_week_gross = [
+            ("Guntur", "1.83cr"),
+            ("Kakinada", "1.3c+"),
+            ("Tirupathi", "1.25cr"),
+            ("Kurnool", "1.11cr"),
+            ("Khammam", "1.05cr"),
+            ("X-Roads", "1cr"),
+            ("Prasadz", "1cr"),
+            ("Karimnagar", "1cr"),
+            ("Ongole", "98.6L"),
+            ("Anantapur", "92.53L"),
+            ("Vizianagaram", "91.3L"),
+            ("Hanumakonda", "85.45L"),
+            ("Bhimavaram", "84.54L"),
+            ("Kadapa", "84.34L"),
+            ("Cineplanet", "78.95L"),
+            ("Warangal", "77.63L"),
+            ("Eluru", "68.19L"),
+            ("Tenali", "62.89L"),
+            ("Mahaboobnagar", "57.68L"),
+            ("Proddutur", "56L"),
+            ("Gajuwaka", "54.53L"),
+            ("Tanuku", "50.32L"),
+            ("Amalapuram", "42.73L"),
+            ("Nandyala", "40L"),
+            ("Palakollu", "38.65L"),
+            ("Mancherial", "35L"),
+            ("Tadipatri", "31L"),
+            ("Tadepalligudem", "38.13L"),
+            ("Machilipatnam", "29.28L"),
+            ("Chirala", "24.51L"),
+            ("Markapuram", "23L"),
+            ("Kavali", "21.4L"),
+            ("Bobbili", "21.22L"),
+            ("Mahabubabad", "20.9L"),
+            ("Macherla", "16.24L"),
+            ("Kadiri", "19.71L"),
+            ("Yemmiganur", "18.76L"),
+            ("Buchi", "11.05L"),
+            ("Darsi", "9.7L"),
+            ("Podili", "8.5L"),
+            ("Anaparthi", "8.15L"),
+            ("Kanigiri", "7.5L")
+        ]
+        st.markdown(generate_centerwise_table(bn_first_week_gross, ["Center", "1st Week Gross"]), unsafe_allow_html=True)
+
+        # 1Cr Centers
+        st.markdown("<h3 style='color:#FFD700;'>1Cr Centers of Bheemla Nayak (First Week)</h3>", unsafe_allow_html=True)
+        centers_1cr = [
+            "Guntur",
+            "Kakinada",
+            "Tirupathi",
+            "Kurnool",
+            "Khammam",
+            "X-Roads",
+            "Prasadz",
+            "Karimnagar"
+        ]
+        st.markdown("<ul style='color:#FFD700; font-size:1.1em;'>" + ''.join([f"<li>{center}</li>" for center in centers_1cr]) + "</ul>", unsafe_allow_html=True)
+
+        # Records
+        st.markdown("<h3 style='color:#FFD700;'>Records</h3>", unsafe_allow_html=True)
+        st.markdown("""
+        <ul style='color:#FFD700; font-size:1.1em;'>
+            <li>First Hero to introduce 1cr Gross In Karimnagar.
+                <ul>
+                    <li>Gabbarsingh - 1.03cr</li>
+                    <li>AttarintikiDaredi -1.1cr</li>
+                    <li>VakeelSaab -1,00,32,995/-</li>
+                    <li>BheemlaNayak 1cr in 7 Days</li>
+                </ul>
+            </li>
+            <li>First 1Cr mv in Khammam Is Attarintiki Daredi and First movie to touch 1cr gross in 6 Days is BheemlaNayak</li>
+        </ul>
+        """, unsafe_allow_html=True)
+
+        # 1st Day Gross - Few Centers
+        st.markdown("<h3 style='color:#FFD700;'>Bheemla Nayak 1st Day Gross - Few Centers</h3>", unsafe_allow_html=True)
+        bn_few_centers = [
+            ("Khammam", "49.98L"),
+            ("X- Roads", "39L"),
+            ("Tirupathi", "36L"),
+            ("Karimnagar", "31.58L"),
+            ("Kurnool", "30.83L"),
+            ("Kadapa", "30.5L"),
+            ("Anantapur", "28.15L"),
+            ("Bhimavaram", "27.67L"),
+            ("Nizamabad", "25.16L"),
+            ("Mahaboobnagar", "24L"),
+            ("Eluru", "22L"),
+            ("Vizianagaram", "19.79L"),
+            ("Adoni", "14.37L"),
+            ("Tadipatri", "13.72L"),
+            ("Macherial", "13.5L"),
+            ("Srikakulam", "13.27L"),
+            ("Godavarikhani", "13L"),
+            ("Gajuwaka", "12.14L"),
+            ("Guntakal", "12L"),
+            ("Miryalaguda", "12L"),
+            ("Hindupur", "11.57L"),
+            ("Kodad", "11.2L"),
+            ("Shadnagar", "11L"),
+            ("Satthupally", "9.86L"),
+            ("Nandyala", "9.84L"),
+            ("Amalapuram", "9.63L"),
+            ("Kothagudem", "8.9L"),
+            ("Dharmavaram", "8.5L"),
+            ("Allagadda", "7.96L"),
+            ("Kadiri", "7.02L"),
+            ("Kavali", "6.75L"),
+            ("Pithapuram", "6.12L"),
+            ("Yemmiganur", "5.92L"),
+            ("Palasa", "5.1L"),
+            ("Nandikotkur", "4.5L"),
+            ("Chirala", "5.44L"),
+            ("Tangutur", "3.15L"),
+            ("Bapatla", "3.05L")
+        ]
+        st.markdown(generate_centerwise_table(bn_few_centers, ["Center", "1st Day Gross"]), unsafe_allow_html=True)
 
     elif selected_centerwise_movie == "Attarintiki Daredi":
         st.markdown("<h2 style='color:#FFD700;'>Attarintiki Daredi - Centerwise Records</h2>", unsafe_allow_html=True)
@@ -1274,6 +1679,45 @@ elif nav_choice == "Center Wise Data":
             ("Total KA", "56,067,268")
         ]
         st.markdown(generate_centerwise_table(ad_ka_closing, ["Area", "Final Share (in Rs.)"]), unsafe_allow_html=True)
+
+        # 1st Day & Special Records
+        st.markdown("<h3 style='color:#FFD700;'>Attarintiki Daredi 1st Day & Special Records</h3>", unsafe_allow_html=True)
+        ad_special = [
+            ("1st Day Total AP share", "10.75 crs..Record"),
+            ("Premiers USA (65 Centers)", "$345,359 (All Time Record)"),
+            ("Bhimavaram Day 1 Record", "12 Theatres 65 Shows...All Full.."),
+            ("Bhimavaram 1st Day Gross", "19.90 lakhs"),
+            ("Nizamabad 1st Day Gross", "8.90 lakhs"),
+            ("Nandhyala 1st Day Gross", "8.76 lakhs"),
+            ("Kakinada 1st Day", "61 Shows Fulls"),
+            ("Eluru 1st Day Gross", "7.50 lakhs"),
+            ("Chittoor Town 1st Day Gross", "8.42 lakhs"),
+            ("Karimnagar 1st Day Gross", "14.60 lakhs"),
+            ("TPgudem 1st Day Gross", "6 lakhs (All 18 Shows Fulls)"),
+            ("Gudiwada 1st Day Gross", "7.50 lakhs"),
+            ("Atthili 1st Day Share", "2.93 lakhs"),
+            ("Palakollu 1st Day Gross", "6.78 lakhs"),
+            ("Kandukur 1st Day Share", "4.37 lakhs"),
+            ("Bheemadole 1st Day Share", "1.3 lakhs"),
+            ("Adhoni 1st Day Gross", "9.70 lakhs"),
+            ("Mahaboobnagar 1st Day Gross", "8.01 lakhs"),
+            ("Ongole 1st Day Share", "13.55 lakhs"),
+            ("Guntur 1st Day (16 Theatres)", "Gross: 15.5 lakhs, Share: 11.12 lakhs"),
+            ("Tenali 1st Day Share", "6.36 lakhs"),
+            ("Pithapuram 1st Day Share", "4.12 lakhs"),
+            ("Tirupathi 1st Day Gross", "34.83 lakhs"),
+            ("Kakinada 1st Day Share", "15.15 lakhs"),
+            ("Narsaraopeta 1st Day Share", "7.36 lakhs"),
+            ("Chilakaluripeta 1st Day Share", "5.65 lakhs"),
+            ("Chirala 1st Day Share", "6.01 lakhs"),
+            ("All Above Centers", "All Time Record 1st Day"),
+            ("Kadapa 2nd Day Gross", "7.4 Lakhs, Highest for 2nd day.."),
+            ("Ananthapur 1st Day Gross", "17 lakhs"),
+            ("Kurnool 1st Day Gross", "17.84 lakhs"),
+            ("Proddutur 1st Day Gross", "9.91 lakhs"),
+            ("Guntur Town 3 Days Share", "33.37 lakhs from 16 theatres of all shows full.")
+        ]
+        st.markdown(generate_centerwise_table(ad_special, ["Center/Note", "Collection/Info"]), unsafe_allow_html=True)
 
     elif selected_centerwise_movie == "Gabbar Singh (Re-Release)":
         st.markdown("<h2 style='color:#FFD700;'>Gabbar Singh Re-Release - Center Wise Data</h2>", unsafe_allow_html=True)
@@ -1560,6 +2004,126 @@ elif nav_choice == "Center Wise Data":
         ]
         st.markdown("<h4 style='color:#FFD700;'>Guntur</h4>", unsafe_allow_html=True)
         st.markdown(generate_centerwise_table(jalsa_guntur, ["Center", "Collection"]), unsafe_allow_html=True)
+
+    elif selected_centerwise_movie == "Katamarayudu":
+        st.markdown("<h2 style='color:#FFD700;'>Katamarayudu - Center Wise Data</h2>", unsafe_allow_html=True)
+
+        # 1st day Grosses
+        katamarayudu_grosses = [
+            ("Bhimavaram", "43.55 lakhs"),
+            ("Eluru", "32.79 lakhs"),
+            ("Tirupathi", "30.6 lakhs"),
+            ("Anantapur", "24.25 lakhs"),
+            ("Kadapa", "20.55 lakhs"),
+            ("Khammam", "18.08 lakhs"),
+            ("Kurnool", "17.28 lakhs"),
+            ("Machilipatnam", "16.55 lakhs"),
+            ("Proddutur", "16.13 lakhs"),
+            ("Tadepalligudem", "12.89 lakhs"),
+            ("Vizianagaram", "12.68 lakhs"),
+            ("Nandyala", "11.84 lakhs"),
+            ("Gudiwada", "11.25 lakhs"),
+            ("Nizamabad", "10.34 lakhs"),
+            ("Adhoni", "9.10 lakhs"),
+            ("Anakapalli", "7.72 lakhs"),
+            ("Chirala", "4.75 lakhs")
+        ]
+        st.markdown("<h4 style='color:#FFD700;'>1st Day Grosses</h4>", unsafe_allow_html=True)
+        st.markdown(generate_centerwise_table(katamarayudu_grosses, ["Center", "Gross"]), unsafe_allow_html=True)
+
+        # 1st day Shares
+        katamarayudu_shares = [
+            ("Kakinada", "34.97 lakhs"),
+            ("Ongole", "18.37 lakhs"),
+            ("Madanapalli", "16.45 lakhs"),
+            ("Tenali", "14 lakhs"),
+            ("Amalapuram", "12.7 lakhs"),
+            ("Mandapeta", "9.67 lakhs"),
+            ("Nellore", "8.17 lakhs"),
+            ("Kandukur", "4.3 lakhs")
+        ]
+        st.markdown("<h4 style='color:#FFD700;'>1st Day Shares</h4>", unsafe_allow_html=True)
+        st.markdown(generate_centerwise_table(katamarayudu_shares, ["Center", "Share"]), unsafe_allow_html=True)
+
+    elif selected_centerwise_movie == "Bro":
+        st.markdown("<h2 style='color:#FFD700;'>Bro - Center Wise Data</h2>", unsafe_allow_html=True)
+
+        # 1st Day Gross
+        bro_gross = [
+            ("X-Roads", "39L"),
+            ("Khammam", "24.16L"),
+            ("Karimnagar", "22.53L"),
+            ("Warangal", "17.6L"),
+            ("Nizamabad", "15.75L"),
+            ("kodad", "9L"),
+            ("Hururnagar", "2.99L"),
+            ("Bhimavaram", "26.62L"),
+            ("Eluru", "32.72L"),
+            ("Tanuku", "18.5L"),
+            ("T.P.Gudem", "9.42L"),
+            ("Kadapa", "23.4L"),
+            ("Kurnool", "31.05L"),
+            ("Nandyala", "15.95L"),
+            ("Adoni", "10.12L"),
+            ("Anantapur", "22.47L"),
+            ("Proddutur", "15.72L"),
+            ("Rajampeta", "8.7L"),
+            ("Chittoor", "9.7L"),
+            ("Guntakal", "5.45L"),
+            ("Yemmiganur", "6L"),
+            ("Nandikotkur", "3.6L"),
+            ("Pulivendula", "3.44L"),
+            ("Machilipatnam", "8.66L"),
+            ("Kaikaluru", "3.4L"),
+            ("Vuyyuru", "3.21L"),
+            ("Tiruvuru", "2.9L"),
+            ("Gudiwada", "8.15L"),
+            ("Challapalli", "1.57L"),
+            ("Kavali", "9.6L"),
+            ("Kandukur", "2.91L"),
+            ("Amalapuram", "19.85L"),
+            ("Mummidivaram", "2.87L"),
+            ("Ongole", "25.8L"),
+            ("Tenali", "18.2L"),
+            ("Macherla", "4.92L"),
+            ("Chirala", "8.03L"),
+            ("Narsaraopeta", "7.52L"),
+            ("Vinukonda", "6.1L"),
+            ("Mangalagiri", "7.1L"),
+            ("Repalle", "7.38L")
+        ]
+        st.markdown("<h4 style='color:#FFD700;'>1st Day Gross</h4>", unsafe_allow_html=True)
+        st.markdown(generate_centerwise_table(bro_gross, ["Center", "Gross"]), unsafe_allow_html=True)
+
+        # UA 1st Day Grosses
+        bro_ua_gross = [
+            ("Vizag", "68.88L"),
+            ("Vizianagaram", "19.4L"),
+            ("Srikakulam", "19.64L"),
+            ("Gajuwaka", "36.38L"),
+            ("Anakapalli", "13.36L"),
+            ("Narsipatnam", "10.17L"),
+            ("Bobbili", "9.25L"),
+            ("Gopalapatnam", "8.84L"),
+            ("Mahurawada", "11.42L"),
+            ("Palasa", "4.93L"),
+            ("Vaddadi", "4.75L"),
+            ("Salur", "3.06L"),
+            ("Tagarapuvulasa", "7.29L"),
+            ("Yelamanchili", "3.78L"),
+            ("Palakonda", "4.51L"),
+            ("Narasannapeta", "4.08L"),
+            ("Pendurthi", "4.58L"),
+            ("Parvatipuram", "2.68L"),
+            ("Kothavalasa", "2.93L"),
+            ("Ponduru", "2.3L"),
+            ("Sompeta", "2.94L"),
+            ("Payakaraopeta", "5.1L"),
+            ("Tekkali", "3.18L"),
+            ("Cheepurupally", "4.57L")
+        ]
+        st.markdown("<h4 style='color:#FFD700;'>UA 1st Day Grosses</h4>", unsafe_allow_html=True)
+        st.markdown(generate_centerwise_table(bro_ua_gross, ["Center", "Gross"]), unsafe_allow_html=True)
 
 # Footer
 st.markdown("""
