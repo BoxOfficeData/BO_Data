@@ -1434,7 +1434,6 @@ elif nav_choice == "Center Wise Data":
             ("Anaparthi", "9.3L")
         ]
         st.markdown(generate_centerwise_table(vs_eg_1w, ["Center", "1st Week Share"]), unsafe_allow_html=True)
-
     elif selected_centerwise_movie == "Bheemla Nayak":
         st.markdown("<h2 style='color:#FFD700;'>Bheemla Nayak - 1st Day Gross</h2>", unsafe_allow_html=True)
         st.markdown("<div style='color:#FFD700; font-size:1em; margin-bottom:10px;'>Legend: <b>Sh</b> = Share</div>", unsafe_allow_html=True)
