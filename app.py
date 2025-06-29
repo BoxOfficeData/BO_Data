@@ -2136,7 +2136,7 @@ elif nav_choice == "Industry Hits":
             <tbody>
                 <tr><td style='color:#FFD700;font-weight:bold;'>Pawan Kalyan</td><td>3</td><td>Kushi, Attarintiki Daredi, Gabbar Singh <span style='font-size:0.95em;'>(Non SSR IH)</span></td></tr>
                 <tr><td style='color:#FFD700;font-weight:bold;'>Ram Charan</td><td>3</td><td>Magadheera, Rangasthalam <span style='font-size:0.95em;'>(Non SSR IH)</span>, RRR</td></tr>
-                <tr><td style='color:#FFD700;font-weight:bold;'>Mahesh Babu</td><td>2</td><td>Pokiri, Srimanthudu</td></tr>
+                <tr><td style='color:#FFD700;font-weight:bold;'>Mahesh Babu</td><td>2</td><td>Pokiri, Srimanthudu[NON SSR IH ]</td></tr>
                 <tr><td style='color:#FFD700;font-weight:bold;'>Prabhas</td><td>2</td><td>Baahubali 1, Baahubali 2</td></tr>
                 <tr><td style='color:#FFD700;font-weight:bold;'>NTR</td><td>1</td><td>RRR</td></tr>
                 <tr><td style='color:#FFD700;font-weight:bold;'>Allu Arjun</td><td>1</td><td>Ala Vaikunthapurramuloo <span style='font-size:0.95em;'>(Non SSR IH)</span></td></tr>
