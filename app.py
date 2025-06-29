@@ -317,7 +317,7 @@ image_paths = {
 
 # Sidebar navigation
 st.sidebar.title("Pawan Kalyan Records")
-nav_options = ["Records", "Center Wise Data", "100 Days Centers"]
+nav_options = ["Records", "Center Wise Data", "100 Days Centers", "Industry Hits"]
 nav_choice = st.sidebar.radio("Go to", nav_options)
 
 if nav_choice == "Records":
@@ -2123,6 +2123,27 @@ elif nav_choice == "Center Wise Data":
         ]
         st.markdown("<h4 style='color:#FFD700;'>UA 1st Day Grosses</h4>", unsafe_allow_html=True)
         st.markdown(generate_centerwise_table(bro_ua_gross, ["Center", "Gross"]), unsafe_allow_html=True)
+
+elif nav_choice == "Industry Hits":
+    st.markdown("<h2 style='color:#FFD700;'>Industry Hits</h2>", unsafe_allow_html=True)
+    st.markdown("""
+    <div class='section-container'>
+        <p style='color:#FFD700; font-size:1.2em; margin-bottom:18px;'>A list of Telugu heroes and their Industry Hit movies (IH). <br> <b>NON SSR IH</b> = Industry Hit not including SSR's Baahubali 2 record.</p>
+        <table class='custom-table'>
+            <thead>
+                <tr><th>Hero</th><th>No. of Industry Hits</th><th>Movies</th></tr>
+            </thead>
+            <tbody>
+                <tr><td style='color:#FFD700;font-weight:bold;'>Pawan Kalyan</td><td>3</td><td>Kushi, Attarintiki Daredi, Gabbar Singh <span style='font-size:0.95em;'>(Non SSR IH)</span></td></tr>
+                <tr><td style='color:#FFD700;font-weight:bold;'>Ram Charan</td><td>3</td><td>Magadheera, Rangasthalam <span style='font-size:0.95em;'>(Non SSR IH)</span>, RRR</td></tr>
+                <tr><td style='color:#FFD700;font-weight:bold;'>Mahesh Babu</td><td>2</td><td>Pokiri, Srimanthudu</td></tr>
+                <tr><td style='color:#FFD700;font-weight:bold;'>Prabhas</td><td>2</td><td>Baahubali 1, Baahubali 2</td></tr>
+                <tr><td style='color:#FFD700;font-weight:bold;'>NTR</td><td>1</td><td>RRR</td></tr>
+                <tr><td style='color:#FFD700;font-weight:bold;'>Allu Arjun</td><td>1</td><td>Ala Vaikunthapurramuloo <span style='font-size:0.95em;'>(Non SSR IH)</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+    """, unsafe_allow_html=True)
 
 # Footer
 st.markdown("""
